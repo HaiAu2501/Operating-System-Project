@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include "Feature/features.h"
+#include "Feature/manage_threads.h"
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
@@ -21,6 +22,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "exit")
     {
         exitShell();
+        exit(0); // Exit the program
     }
     else if (command == "list_tree")
     {
@@ -69,6 +71,14 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "list_processes")
     {
         listProcesses(args);
+    }
+    else if (command == "start_child")
+    {
+        startChildProcess();
+    }
+    else if (command == "manage_threads")
+    {
+        handleManageThreadsCommand(args);
     }
     else
     {

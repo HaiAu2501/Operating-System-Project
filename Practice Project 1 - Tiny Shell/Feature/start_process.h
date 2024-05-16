@@ -55,7 +55,7 @@ void startProcess(const std::vector<std::string> &args)
 
     STARTUPINFOA si = {sizeof(si)};
     PROCESS_INFORMATION pi;
-    if (!CreateProcessA(NULL, &command[0], NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+    if (!CreateProcessA(NULL, &command[0], NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
     {
         std::cerr << "Failed to start process: " << GetLastError() << std::endl;
         return;
@@ -76,6 +76,12 @@ void startProcess(const std::vector<std::string> &args)
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+}
+
+void startChildProcess()
+{
+    std::vector<std::string> args = {"child_process.exe"};
+    startProcess(args);
 }
 
 #endif // START_PROCESS_H

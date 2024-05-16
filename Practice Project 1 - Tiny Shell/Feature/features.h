@@ -15,5 +15,6 @@
 #include "start_process.h"
 #include "terminate_process.h"
 #include "list_processes.h"
+#include "manage_threads.h"
 
 #endif // FEATURES_H
