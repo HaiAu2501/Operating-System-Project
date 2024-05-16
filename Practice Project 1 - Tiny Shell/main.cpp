@@ -2,15 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "Feature/delete_directory.h"
-#include "Feature/move_directory.h"
-#include "Feature/open_file.h"
-#include "Feature/exit_shell.h"
-#include "Feature/list_directory_tree.h"
-#include "Feature/create_directory.h"
-#include "Feature/copy_directory.h"
-#include "Feature/run_script.h"
-#include "Feature/help.h"
+#include "Feature/features.h"
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
@@ -49,6 +41,22 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "help")
     {
         help(args);
+    }
+    else if (command == "rename")
+    {
+        renameFile(args);
+    }
+    else if (command == "cd")
+    {
+        changeDirectory(args);
+    }
+    else if (command == "dir")
+    {
+        listDirectoryContents(args);
+    }
+    else if (command == "pwd")
+    {
+        printWorkingDirectory(args);
     }
     else
     {
