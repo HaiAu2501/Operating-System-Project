@@ -6,9 +6,9 @@
 
 using namespace std;
 
-class CigaretteSmokers {
-    public:
-
+class CigaretteSmokers
+{
+public:
     static counting_semaphore<INT_MAX> tobaccoSem;
     static counting_semaphore<INT_MAX> paperSem;
     static counting_semaphore<INT_MAX> matchSem;
@@ -24,8 +24,10 @@ class CigaretteSmokers {
     static mutex coutMutex;
     static mutex pusherMutex;
 
-    static void smokerWithTobacco() {
-        while (true) {
+    static void smokerWithTobacco()
+    {
+        while (true)
+        {
             tobaccoSem.acquire();
             coutMutex.lock();
             cout << "Smoker with tobacco is making cigarette.\n";
@@ -34,8 +36,10 @@ class CigaretteSmokers {
         }
     }
 
-    static void smokerWithPaper() {
-        while (true) {
+    static void smokerWithPaper()
+    {
+        while (true)
+        {
             paper.acquire();
             coutMutex.lock();
             cout << "Smoker with paper is making cigarette.\n";
@@ -44,8 +48,10 @@ class CigaretteSmokers {
         }
     }
 
-    static void smokerWithMatch() {
-        while (true) {
+    static void smokerWithMatch()
+    {
+        while (true)
+        {
             matchSem.acquire();
             coutMutex.lock();
             cout << "Smoker with match is making cigarette.\n";
@@ -54,28 +60,31 @@ class CigaretteSmokers {
         }
     }
 
-    static void agent() {
-        while (true) {
+    static void agent()
+    {
+        while (true)
+        {
             int random_number = rand() % 3;
-            switch (random_number) {
-                case 0:
-                    tobacco.release();
-                    paper.release();
-                    break;
-                
-                case 1:
-                    paper.release();
-                    match.release();
-                    break;
+            switch (random_number)
+            {
+            case 0:
+                tobacco.release();
+                paper.release();
+                break;
 
-                case 2:
-                    match.release();
-                    tobacco.release();
-                    break;
+            case 1:
+                paper.release();
+                match.release();
+                break;
 
-                default:
-                    assert(false);
-                    break;
+            case 2:
+                match.release();
+                tobacco.release();
+                break;
+
+            default:
+                assert(false);
+                break;
             }
             coutMutex.lock();
             cout << numTobacco << ' ' << numPaper << ' ' << numMatch << '\n';
@@ -83,64 +92,80 @@ class CigaretteSmokers {
         }
     }
 
-    static void pusherA() {
-        while (true) {
+    static void pusherA()
+    {
+        while (true)
+        {
             tobacco.acquire();
-            pusherMutex.lock(); 
-            if (numPaper) {
+            pusherMutex.lock();
+            if (numPaper)
+            {
                 --numPaper;
                 matchSem.release();
             }
-            else if (numMatch) {
+            else if (numMatch)
+            {
                 --numMatch;
                 paperSem.release();
             }
-            else {
+            else
+            {
                 ++numTobacco;
             }
             pusherMutex.unlock();
         }
     }
 
-    static void pusherB() {
-        while (true) {
+    static void pusherB()
+    {
+        while (true)
+        {
             paper.acquire();
-            pusherMutex.lock(); 
-            if (numMatch) {
+            pusherMutex.lock();
+            if (numMatch)
+            {
                 --numMatch;
                 tobaccoSem.release();
             }
-            else if (numTobacco) {
+            else if (numTobacco)
+            {
                 --numTobacco;
                 match.release();
             }
-            else {
+            else
+            {
                 ++numPaper;
             }
             pusherMutex.unlock();
         }
     }
 
-    static void pusherC() {
-        while (true) {
+    static void pusherC()
+    {
+        while (true)
+        {
             match.acquire();
-            pusherMutex.lock(); 
-            if (numTobacco) {
+            pusherMutex.lock();
+            if (numTobacco)
+            {
                 --numTobacco;
                 paperSem.release();
             }
-            else if (numPaper) {
+            else if (numPaper)
+            {
                 --numPaper;
                 tobaccoSem.release();
             }
-            else {
+            else
+            {
                 ++numMatch;
             }
             pusherMutex.unlock();
         }
     }
 
-    static void simulate() {
+    static void simulate()
+    {
         thread agentThread(agent);
 
         thread pusherAThread(pusherA);
@@ -178,7 +203,8 @@ int CigaretteSmokers::numTobacco = 0;
 int CigaretteSmokers::numPaper = 0;
 int CigaretteSmokers::numMatch = 0;
 
-int main() {
+int main()
+{
     CigaretteSmokers::simulate();
     return 0;
 }
