@@ -1,0 +1,14 @@
+1. dir - Hiển thị danh sách các tệp và thư mục trong thư mục hiện tại.
+2. cd - Thay đổi thư mục hiện tại. Ví dụ: cd Documents để chuyển đến thư mục Documents.
+3. md hoặc mkdir - Tạo một thư mục mới.
+rd hoặc rmdir - Xóa một thư mục. Sử dụng /S để xóa thư mục và tất cả các nội dung bên trong nó.
+del - Xóa một hoặc nhiều tệp. Ví dụ: del filename.txt.
+copy - Sao chép tệp từ vị trí này sang vị trí khác.
+move - Di chuyển tệp hoặc thư mục từ vị trí này sang vị trí khác.
+type - Hiển thị nội dung của tệp văn bản.
+exit - Thoát khỏi Command Prompt.
+cls - Xóa màn hình.
+echo - Hiển thị một thông điệp hoặc bật/tắt hiển thị của lệnh.
+path - Hiển thị hoặc thiết lập đường dẫn tìm kiếm cho các tệp thực thi.
+find - Tìm kiếm một chuỗi văn bản trong một hoặc nhiều tệp.
+attrib - Hiển thị hoặc thay đổi thuộc tính tệp.
