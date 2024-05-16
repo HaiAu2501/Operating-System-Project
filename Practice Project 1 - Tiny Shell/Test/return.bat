@@ -1,0 +1,1 @@
+delete "F:\# OS\Operating-System-Project\New Folder"

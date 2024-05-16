@@ -2,10 +2,15 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "delete_directory.h"
-#include "move_directory.h"
-#include "open_file.h"
-#include "exit_shell.h"
+#include "Feature/delete_directory.h"
+#include "Feature/move_directory.h"
+#include "Feature/open_file.h"
+#include "Feature/exit_shell.h"
+#include "Feature/list_directory_tree.h"
+#include "Feature/create_directory.h"
+#include "Feature/copy_directory.h"
+#include "Feature/run_script.h"
+#include "Feature/help.h"
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
@@ -24,6 +29,26 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "exit")
     {
         exitShell();
+    }
+    else if (command == "list_tree")
+    {
+        listDirectoryTree(args);
+    }
+    else if (command == "create")
+    {
+        createDirectory(args);
+    }
+    else if (command == "copy")
+    {
+        copyDirectory(args);
+    }
+    else if (command == "run")
+    {
+        runScript(args);
+    }
+    else if (command == "help")
+    {
+        help(args);
     }
     else
     {
