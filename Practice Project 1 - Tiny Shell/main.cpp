@@ -3,7 +3,6 @@
 #include <vector>
 #include <sstream>
 #include "Feature/features.h"
-#include "Feature/manage_threads.h"
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
