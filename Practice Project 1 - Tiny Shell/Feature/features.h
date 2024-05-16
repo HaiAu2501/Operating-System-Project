@@ -12,5 +12,8 @@
 #include "help.h"
 #include "rename_file.h"
 #include "navigation.h"
+#include "start_process.h"
+#include "terminate_process.h"
+#include "list_processes.h"
 
 #endif // FEATURES_H

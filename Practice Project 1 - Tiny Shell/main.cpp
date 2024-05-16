@@ -58,6 +58,18 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         printWorkingDirectory(args);
     }
+    else if (command == "start")
+    {
+        startProcess(args);
+    }
+    else if (command == "terminate")
+    {
+        terminateProcess(args);
+    }
+    else if (command == "list_processes")
+    {
+        listProcesses(args);
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
