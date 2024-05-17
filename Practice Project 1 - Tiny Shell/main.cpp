@@ -61,7 +61,15 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start")
     {
-        handleStartCommand(args);
+        startProcess(args);
+    }
+    else if (command == "start_foreground")
+    {
+        handleStartForegroundCommand(args);
+    }
+    else if (command == "start_background")
+    {
+        handleStartBackgroundCommand(args);
     }
     else if (command == "terminate")
     {
@@ -147,6 +155,7 @@ int main()
         std::cout << "tiny_shell> ";
         std::getline(std::cin, input);
 
+        // splitInput để tách input thành các tokens
         std::vector<std::string> tokens = splitInput(input);
 
         if (tokens.empty())

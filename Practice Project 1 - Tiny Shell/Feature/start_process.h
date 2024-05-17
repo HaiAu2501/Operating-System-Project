@@ -54,11 +54,14 @@ void startProcess(const std::vector<std::string> &args)
     }
 
     STARTUPINFOA si = {sizeof(si)};
-
     PROCESS_INFORMATION pi;
-    if (!CreateProcessA(NULL, &command[0], NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi))
+    char *cmd = new char[command.length() + 1];
+    strcpy(cmd, command.c_str());
+
+    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi))
     {
         std::cerr << "Failed to start process: " << GetLastError() << std::endl;
+        delete[] cmd; // Giải phóng bộ nhớ
         return;
     }
     std::cout << "Started process with PID: " << pi.dwProcessId << std::endl;
@@ -77,6 +80,7 @@ void startProcess(const std::vector<std::string> &args)
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+    delete[] cmd; // Giải phóng bộ nhớ
 }
 
 void startChildProcess()

@@ -53,12 +53,22 @@ void waitForChildProcesses(DWORD parentPID)
     }
 }
 
-void startProcessForeground(const std::string &command)
+void startProcessForeground(const std::vector<std::string> &args)
 {
+    if (args.size() < 1)
+    {
+        std::cerr << "Usage: start_foreground <command>" << std::endl;
+        return;
+    }
+
+    std::string command = args[0];
+    for (size_t i = 1; i < args.size(); ++i)
+    {
+        command += " " + args[i];
+    }
+
     STARTUPINFOA si = {sizeof(si)};
     PROCESS_INFORMATION pi;
-
-    // Tạo một bản sao của command để có thể chỉnh sửa được
     char *cmd = new char[command.length() + 1];
     strcpy(cmd, command.c_str());
 
@@ -80,12 +90,22 @@ void startProcessForeground(const std::string &command)
     delete[] cmd; // Giải phóng bộ nhớ
 }
 
-void startProcessBackground(const std::string &command)
+void startProcessBackground(const std::vector<std::string> &args)
 {
+    if (args.size() < 1)
+    {
+        std::cerr << "Usage: start_background <command>" << std::endl;
+        return;
+    }
+
+    std::string command = args[0];
+    for (size_t i = 1; i < args.size(); ++i)
+    {
+        command += " " + args[i];
+    }
+
     STARTUPINFOA si = {sizeof(si)};
     PROCESS_INFORMATION pi;
-
-    // Tạo một bản sao của command để có thể chỉnh sửa được
     char *cmd = new char[command.length() + 1];
     strcpy(cmd, command.c_str());
 
@@ -103,34 +123,14 @@ void startProcessBackground(const std::string &command)
     delete[] cmd; // Giải phóng bộ nhớ
 }
 
-void handleStartCommand(const std::vector<std::string> &args)
+void handleStartForegroundCommand(const std::vector<std::string> &args)
 {
-    if (args.size() < 2)
-    {
-        std::cerr << "Usage: start <foreground|background> <command>" << std::endl;
-        return;
-    }
+    startProcessForeground(args);
+}
 
-    std::string mode = args[0];
-    std::string command = args[1];
-    for (size_t i = 2; i < args.size(); ++i)
-    {
-        command += " " + args[i];
-    }
-
-    if (mode == "foreground")
-    {
-        startProcessForeground(command);
-    }
-    else if (mode == "background")
-    {
-        startProcessBackground(command);
-    }
-    else
-    {
-        std::cerr << "Unknown mode: " << mode << std::endl;
-        std::cerr << "Usage: start <foreground|background> <command>" << std::endl;
-    }
+void handleStartBackgroundCommand(const std::vector<std::string> &args)
+{
+    startProcessBackground(args);
 }
 
 #endif // PROCESS_MANAGEMENT_H
