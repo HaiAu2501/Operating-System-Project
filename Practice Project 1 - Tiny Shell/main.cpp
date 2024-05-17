@@ -21,6 +21,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "exit")
     {
         exitShell();
+        PostQuitMessage(0); // Exit the program
     }
     else if (command == "list_tree")
     {
@@ -60,7 +61,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start")
     {
-        startProcess(args);
+        handleStartCommand(args);
     }
     else if (command == "terminate")
     {
@@ -72,15 +73,41 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_child")
     {
-        std::vector<std::string> childArgs = {"child_process.exe"}; // Đường dẫn tới tiến trình con
-        startProcess(childArgs);
+        startChildProcess();
+    }
+    else if (command == "manage_threads")
+    {
+        handleManageThreadsCommand(args);
+    }
+    else if (command == "time")
+    {
+        showSystemTime(args);
+    }
+    else if (command == "date")
+    {
+        showSystemDate(args);
+    }
+    else if (command == "uptime")
+    {
+        showSystemUptime(args);
+    }
+    else if (command == "cpuinfo")
+    {
+        showCPUInfo(args);
+    }
+    else if (command == "meminfo")
+    {
+        showMemoryInfo(args);
+    }
+    else if (command == "diskinfo")
+    {
+        showDiskInfo(args);
     }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
     }
 }
-
 std::vector<std::string> splitInput(const std::string &input)
 {
     std::vector<std::string> tokens;
