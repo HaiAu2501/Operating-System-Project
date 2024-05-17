@@ -4,6 +4,23 @@
 #include <sstream>
 #include "Feature/features.h"
 
+// Hàm in ra các thông tin ban đầu khi shell khởi động
+void printInitialInfo()
+{
+    // Lấy PID của chính tiến trình hiện tại (main.exe)
+    DWORD pid = GetCurrentProcessId();
+
+    // In ra các thông tin ban đầu
+    std::cout << "========================================" << std::endl;
+    std::cout << "              Tiny Shell                " << std::endl;
+    std::cout << "========================================" << std::endl;
+    std::cout << "Welcome to Tiny Shell!" << std::endl;
+    std::cout << "This is a simple shell program to interact with the Windows operating system." << std::endl;
+    std::cout << "PID of Tiny Shell: " << pid << std::endl;
+    std::cout << "Type 'help' to see the list of available commands." << std::endl;
+    std::cout << "========================================" << std::endl;
+}
+
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
     if (command == "delete")
@@ -157,6 +174,9 @@ std::vector<std::string> splitInput(const std::string &input)
 
 int main()
 {
+    // In ra thông tin ban đầu khi shell khởi động
+    printInitialInfo();
+
     std::string input;
     while (true)
     {
