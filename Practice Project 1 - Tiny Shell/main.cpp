@@ -21,7 +21,6 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "exit")
     {
         exitShell();
-        exit(0); // Exit the program
     }
     else if (command == "list_tree")
     {
@@ -73,11 +72,8 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_child")
     {
-        startChildProcess();
-    }
-    else if (command == "manage_threads")
-    {
-        handleManageThreadsCommand(args);
+        std::vector<std::string> childArgs = {"child_process.exe"}; // Đường dẫn tới tiến trình con
+        startProcess(childArgs);
     }
     else
     {

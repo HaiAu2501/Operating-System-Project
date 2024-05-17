@@ -54,8 +54,9 @@ void startProcess(const std::vector<std::string> &args)
     }
 
     STARTUPINFOA si = {sizeof(si)};
+
     PROCESS_INFORMATION pi;
-    if (!CreateProcessA(NULL, &command[0], NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
+    if (!CreateProcessA(NULL, &command[0], NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi))
     {
         std::cerr << "Failed to start process: " << GetLastError() << std::endl;
         return;
