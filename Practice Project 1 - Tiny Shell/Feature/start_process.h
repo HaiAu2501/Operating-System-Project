@@ -55,6 +55,8 @@ void startProcess(const std::vector<std::string> &args)
 
     STARTUPINFOA si = {sizeof(si)};
     PROCESS_INFORMATION pi;
+    ZeroMemory(&pi, sizeof(pi));
+
     char *cmd = new char[command.length() + 1];
     strcpy(cmd, command.c_str());
 

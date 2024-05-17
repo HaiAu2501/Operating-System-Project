@@ -18,5 +18,7 @@
 #include "manage_threads.h"
 #include "system_utils.h"
 #include "process_management.h"
+#include "show_calculator.h"
+#include "find_child_processes.h"
 
 #endif // FEATURES_H

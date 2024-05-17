@@ -41,7 +41,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "help")
     {
-        help(args);
+        showHelp(args);
     }
     else if (command == "rename")
     {
@@ -79,6 +79,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         listProcesses(args);
     }
+    else if (command == "list_children")
+    {
+        printAllChildProcesses(args);
+    }
     else if (command == "start_child")
     {
         startChildProcess();
@@ -110,6 +114,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "diskinfo")
     {
         showDiskInfo(args);
+    }
+    else if (command == "calculator")
+    {
+        showCalculator(args);
     }
     else
     {
