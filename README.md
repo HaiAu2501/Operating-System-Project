@@ -6,6 +6,9 @@ Tiny Shell là một chương trình mô phỏng giao diện dòng lệnh đơn 
 
 Tiny Shell là một dự án hữu ích cho những ai muốn tìm hiểu về lập trình hệ điều hành và các giao diện dòng lệnh, cũng như cách sử dụng các thư viện và API của hệ điều hành Windows để thao tác với hệ thống tệp tin.
 
-## Các tính năng
+## Thành viên
 
-Nằm trong feature.
+- Lưu Thịnh Khang
+- Nguyễn Viết Tuấn Kiệt
+- Bùi Quang Phong
+- Nguyễn Thanh Tuyển
