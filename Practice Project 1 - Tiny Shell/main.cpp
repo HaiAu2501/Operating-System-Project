@@ -4,6 +4,12 @@
 #include <sstream>
 #include "Feature/features.h"
 
+// Tạo đối tượng lưu trữ lịch sử các câu lệnh
+CommandHistory commandHistory;
+
+// Tạo đối tượng để quản lý biến
+VariableManager variableManager;
+
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -136,6 +142,38 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         showCalculator(args);
     }
+    else if (command == "history")
+    {
+        commandHistory.show();
+    }
+    else if (command == "clear")
+    {
+        clearScreen();
+    }
+    else if (command == "calculate")
+    {
+        if (!args.empty())
+        {
+            std::string expression;
+            for (const std::string &arg : args)
+            {
+                expression += arg + " ";
+            }
+            try
+            {
+                double result = variableManager.evaluateExpression(expression);
+                std::cout << result << std::endl;
+            }
+            catch (const std::exception &e)
+            {
+                std::cout << "Error: " << e.what() << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Usage: calculate <expression>" << std::endl;
+        }
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
@@ -177,11 +215,23 @@ int main()
     // In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
 
+    commandHistory.load(); // Tải lịch sử từ file (nếu có)
+
     std::string input;
     while (true)
     {
         std::cout << "tiny_shell> ";
         std::getline(std::cin, input);
+
+        // Ghi câu lệnh vào lịch sử
+        commandHistory.add(input);
+
+        // Kiểm tra và xử lý lệnh gán giá trị cho biến
+        if (variableManager.isAssignment(input))
+        {
+            variableManager.handleAssignment(input);
+            continue;
+        }
 
         // splitInput để tách input thành các tokens
         std::vector<std::string> tokens = splitInput(input);
@@ -191,6 +241,8 @@ int main()
 
         std::string command = tokens[0];
         tokens.erase(tokens.begin());
+
+        // Xử lý các lệnh còn lại
         executeCommand(command, tokens);
     }
     return 0;
