@@ -3,3 +3,6 @@
 
 # Ẩn thư mục .vscode
 .vscode/
+
+# Ẩn file lịch sử
+Practice Project 1 - Tiny Shell/history.txt

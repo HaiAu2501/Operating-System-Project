@@ -18,11 +18,10 @@
 #include "find_child_processes.h"
 #include "manage_threads.h"
 
-// HỆ THỐNG VÀ TIỆN ÍCH (3)
+// HỆ THỐNG VÀ TIỆN ÍCH (4)
 #include "run_script.h"
 #include "show_calculator.h"
 #include "system_utils.h"
-
 #include "variables.h" // Mới cập nhật, cần kiểm tra
 
 // ĐIỀU HƯỚNG VÀ GIAO DIỆN (5)
