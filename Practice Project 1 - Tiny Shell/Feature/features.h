@@ -23,6 +23,7 @@
 #include "show_calculator.h"
 #include "system_utils.h"
 #include "variables.h" // Mới cập nhật, cần kiểm tra
+#include "dancing.h"   // Mới cập nhật, cần kiểm tra
 
 // ĐIỀU HƯỚNG VÀ GIAO DIỆN (5)
 #include "navigation.h"

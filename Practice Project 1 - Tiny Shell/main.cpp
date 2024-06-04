@@ -174,6 +174,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cout << "Usage: calculate <expression>" << std::endl;
         }
     }
+    else if (command == "dancing")
+    {
+        dancing();
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
