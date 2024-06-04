@@ -139,4 +139,10 @@ void startTicTacToe()
     startProcessForeground(args);
 }
 
+void startDuck()
+{
+    std::vector<std::string> args = {"duck.exe"};
+    startProcessForeground(args);
+}
+
 #endif // PROCESS_MANAGEMENT_H

@@ -192,6 +192,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         startTicTacToe();
     }
+    else if (command == "duck")
+    {
+        startDuck();
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
