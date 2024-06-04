@@ -2,6 +2,8 @@
 #include <tchar.h>
 #include <cstdio>
 
+// To compile: g++ -o countdown countdown.cpp -lgdi32
+
 #define IDT_TIMER1 1
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
