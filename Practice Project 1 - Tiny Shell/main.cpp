@@ -14,29 +14,6 @@ CommandHistory commandHistory;
 // Tạo đối tượng để quản lý biến
 VariableManager variableManager;
 
-// Global variable to store the process information of the foreground process
-PROCESS_INFORMATION foregroundProcessInfo;
-bool isForegroundProcessRunning = false;
-
-BOOL WINAPI CtrlHandler(DWORD fdwCtrlType)
-{
-    switch (fdwCtrlType)
-    {
-    case CTRL_C_EVENT:
-        if (isForegroundProcessRunning)
-        {
-            TerminateProcess(foregroundProcessInfo.hProcess, 0);
-            CloseHandle(foregroundProcessInfo.hProcess);
-            CloseHandle(foregroundProcessInfo.hThread);
-            isForegroundProcessRunning = false;
-            std::cout << "Foreground process terminated. Returning to Tiny Shell." << std::endl;
-        }
-        return TRUE;
-    default:
-        return FALSE;
-    }
-}
-
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -211,6 +188,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         dancing();
     }
+    else if (command == "playing")
+    {
+        startTicTacToe();
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
@@ -249,13 +230,6 @@ std::vector<std::string> splitInput(const std::string &input)
 
 int main()
 {
-    // Set up signal handler for Ctrl + C
-    // if (!SetConsoleCtrlHandler(CtrlHandler, TRUE))
-    // {
-    //     std::cerr << "Unable to install Ctrl handler!" << std::endl;
-    //     return 1;
-    // }
-
     // In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
 
