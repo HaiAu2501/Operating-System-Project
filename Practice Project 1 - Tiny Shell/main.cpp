@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <thread>
 #include "Feature/features.h"
+#include <signal.h>
 
 // Tạo đối tượng lưu trữ lịch sử các câu lệnh
 CommandHistory commandHistory;
@@ -114,7 +115,9 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_foreground")
     {
+        signal(SIGINT, SIG_IGN);
         handleStartForegroundCommand(args);
+        signal(SIGINT, SIG_DFL);
     }
     else if (command == "start_background")
     {
@@ -247,11 +250,11 @@ std::vector<std::string> splitInput(const std::string &input)
 int main()
 {
     // Set up signal handler for Ctrl + C
-    if (!SetConsoleCtrlHandler(CtrlHandler, TRUE))
-    {
-        std::cerr << "Unable to install Ctrl handler!" << std::endl;
-        return 1;
-    }
+    // if (!SetConsoleCtrlHandler(CtrlHandler, TRUE))
+    // {
+    //     std::cerr << "Unable to install Ctrl handler!" << std::endl;
+    //     return 1;
+    // }
 
     // In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
