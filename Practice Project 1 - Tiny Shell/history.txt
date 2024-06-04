@@ -1874600,3 +1874600,5 @@ help
 run
 run new.bat
 run Test/new.bat
+run Test/new.bat
+run Test/return.bat
