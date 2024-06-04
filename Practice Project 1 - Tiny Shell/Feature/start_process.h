@@ -91,4 +91,10 @@ void startChildProcess()
     startProcess(args);
 }
 
+void startCountdownProcess()
+{
+    std::vector<std::string> args = {"countdown.exe"};
+    startProcess(args);
+}
+
 #endif // START_PROCESS_H

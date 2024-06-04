@@ -8,6 +8,9 @@
 #include <tlhelp32.h>
 #include <set>
 
+extern PROCESS_INFORMATION foregroundProcessInfo;
+extern bool isForegroundProcessRunning;
+
 // Hàm đợi tất cả tiến trình con của một tiến trình cha kết thúc
 void waitForChildProcesses(DWORD parentPID)
 {
@@ -68,24 +71,27 @@ void startProcessForeground(const std::vector<std::string> &args)
     }
 
     STARTUPINFOA si = {sizeof(si)};
-    PROCESS_INFORMATION pi;
     char *cmd = new char[command.length() + 1];
     strcpy(cmd, command.c_str());
 
-    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi))
+    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &foregroundProcessInfo))
     {
         std::cerr << "Failed to start process: " << GetLastError() << std::endl;
         delete[] cmd; // Giải phóng bộ nhớ
         return;
     }
 
+    isForegroundProcessRunning = true;
+
     // Đợi tiến trình chính kết thúc
-    WaitForSingleObject(pi.hProcess, INFINITE);
-    CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);
+    WaitForSingleObject(foregroundProcessInfo.hProcess, INFINITE);
+    CloseHandle(foregroundProcessInfo.hProcess);
+    CloseHandle(foregroundProcessInfo.hThread);
+
+    isForegroundProcessRunning = false;
 
     // Đợi cho tất cả các tiến trình con của tiến trình chính kết thúc
-    waitForChildProcesses(pi.dwProcessId);
+    waitForChildProcesses(foregroundProcessInfo.dwProcessId);
 
     delete[] cmd; // Giải phóng bộ nhớ
 }

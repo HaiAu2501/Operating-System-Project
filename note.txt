@@ -1,2 +1,12 @@
-- Chuyển Infix sang Postfix và tính giá trị biểu thức: Done.
-- Some fun features: dancing (Done).
+
+- Tính năng vui vẻ tấu hề: 
+  - Dancing: DONE.
+  - Vẽ 1 bông hoa.
+  - Chạy hình ảnh động.
+  - Chạy một trò chơi Tic-Tac-Toe.
+- Tính năng khó:
+  - Chuyển Infix sang Postfix và tính giá trị biểu thức: DONE.
+  - Tạo GUI countdown 10 về 1. 
+  - Ghi đầu ra vào 1 file txt.
+  - Đổi màu syntax.
+- Tương tác online.
