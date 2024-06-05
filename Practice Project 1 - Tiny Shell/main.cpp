@@ -5,7 +5,6 @@
 #include <csignal>
 #include <windows.h>
 #include <thread>
-#include <signal.h>
 #include "Feature/features.h"
 
 // Tạo đối tượng lưu trữ lịch sử các câu lệnh
@@ -29,13 +28,6 @@ void printInitialInfo()
     std::cout << "PID of Tiny Shell: " << pid << std::endl;
     std::cout << "Type 'help' to see the list of available commands." << std::endl;
     std::cout << "========================================" << std::endl;
-}
-
-void handle(int sig) {
-    if (sig == SIGINT) {
-        printf("\n");
-    }
-    signal(SIGINT, handle);
 }
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
@@ -99,9 +91,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_foreground")
     {
-        signal(SIGINT, handle);
         handleStartForegroundCommand(args);
-        signal(SIGINT, SIG_DFL);
     }
     else if (command == "start_background")
     {
@@ -242,17 +232,24 @@ std::vector<std::string> splitInput(const std::string &input)
 
 int main()
 {
-    //signal(SIGINT, handle);
-    // In ra thông tin ban đầu khi shell khởi động
+    // signal(SIGINT, handle);
+    //  In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
 
     commandHistory.load(); // Tải lịch sử từ file (nếu có)
 
     std::string input;
+    signal(SIGINT, SIG_IGN);
     while (true)
     {
         std::cout << "tiny_shell> ";
         std::getline(std::cin, input);
+        if (std::cin.fail() || std::cin.eof())
+        {
+            std::cin.clear();
+            std::cout << std::endl;
+            continue;
+        }
 
         // Ghi câu lệnh vào lịch sử
         commandHistory.add(input);
