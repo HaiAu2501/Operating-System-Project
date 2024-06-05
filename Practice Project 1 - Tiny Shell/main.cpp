@@ -5,8 +5,8 @@
 #include <csignal>
 #include <windows.h>
 #include <thread>
-#include "Feature/features.h"
 #include <signal.h>
+#include "Feature/features.h"
 
 // Tạo đối tượng lưu trữ lịch sử các câu lệnh
 CommandHistory commandHistory;
@@ -201,6 +201,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
         std::cout << "Unknown command: " << command << std::endl;
     }
 }
+
 std::vector<std::string> splitInput(const std::string &input)
 {
     std::vector<std::string> tokens;
