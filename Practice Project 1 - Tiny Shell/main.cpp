@@ -31,6 +31,13 @@ void printInitialInfo()
     std::cout << "========================================" << std::endl;
 }
 
+void handle(int sig) {
+    if (sig == SIGINT) {
+        printf("\n");
+    }
+    signal(SIGINT, handle);
+}
+
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
     if (command == "delete")
@@ -92,7 +99,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_foreground")
     {
-        signal(SIGINT, SIG_IGN);
+        signal(SIGINT, handle);
         handleStartForegroundCommand(args);
         signal(SIGINT, SIG_DFL);
     }
@@ -234,6 +241,7 @@ std::vector<std::string> splitInput(const std::string &input)
 
 int main()
 {
+    //signal(SIGINT, handle);
     // In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
 
