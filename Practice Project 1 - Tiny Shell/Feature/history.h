@@ -51,6 +51,18 @@ public:
             inFile.close();
         }
     }
+
+    // Xóa lịch sử
+    void clear()
+    {
+        history.clear();
+        // Xóa nội dung của file
+        std::ofstream outFile(historyFile, std::ios::trunc);
+        if (outFile.is_open())
+        {
+            outFile.close();
+        }
+    }
 };
 
 #endif // HISTORY_H

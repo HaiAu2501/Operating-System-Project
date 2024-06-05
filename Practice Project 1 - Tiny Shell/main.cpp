@@ -153,6 +153,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         commandHistory.show();
     }
+    else if (command == "clear_history")
+    {
+        commandHistory.clear();
+    }
     else if (command == "clear")
     {
         clearScreen();
@@ -232,18 +236,20 @@ std::vector<std::string> splitInput(const std::string &input)
 
 int main()
 {
-    // signal(SIGINT, handle);
     //  In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
 
     commandHistory.load(); // Tải lịch sử từ file (nếu có)
 
     std::string input;
+
     signal(SIGINT, SIG_IGN);
+
     while (true)
     {
         std::cout << "tiny_shell> ";
         std::getline(std::cin, input);
+
         if (std::cin.fail() || std::cin.eof())
         {
             std::cin.clear();
