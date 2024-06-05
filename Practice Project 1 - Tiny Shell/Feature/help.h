@@ -54,6 +54,7 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "help" << ": Show this help message" << std::endl;
     std::cout << std::setw(20) << "history" << ": Show history" << std::endl;
     std::cout << std::setw(20) << "clear" << ": Clear screen" << std::endl;
+    std::cout << std::setw(20) << "clear_history" << ": Clear history" << std::endl;
 }
 
 #endif // HELP_COMMAND_H

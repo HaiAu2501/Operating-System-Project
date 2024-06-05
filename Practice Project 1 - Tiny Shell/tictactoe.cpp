@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <csignal>
+#include <atomic>
 
 using namespace std;
 
@@ -24,22 +26,40 @@ private:
 
     vector<vector<Player>> board;
     Player currentPlayer;
+
+    static void signalHandler(int signal);
+    static atomic<bool> stopFlag; // Cờ dừng
 };
+
+atomic<bool> TicTacToe::stopFlag(false); // Khởi tạo cờ dừng
 
 TicTacToe::TicTacToe()
     : board(3, vector<Player>(3, Player::None)), currentPlayer(Player::X) {}
 
 void TicTacToe::playGame()
 {
+    // Đăng ký xử lý tín hiệu
+    signal(SIGINT, TicTacToe::signalHandler);
+
     Player winner = Player::None;
     int moveCount = 0;
 
-    while (winner == Player::None && moveCount < 9)
+    while (winner == Player::None && moveCount < 9 && !stopFlag)
     {
         printBoard();
+        if (stopFlag) // Kiểm tra cờ sau khi in bảng
+        {
+            break;
+        }
+
         int row, col;
         cout << "Player " << (currentPlayer == Player::X ? "X" : "O") << ", enter your move (row and column): ";
         cin >> row >> col;
+
+        if (stopFlag) // Kiểm tra cờ sau khi nhận nhập liệu
+        {
+            break;
+        }
 
         // Chuyển đổi từ chỉ mục người dùng nhập (1-3) sang chỉ mục mảng (0-2)
         if (makeMove(row - 1, col - 1))
@@ -55,6 +75,12 @@ void TicTacToe::playGame()
         {
             cout << "Invalid move. Try again." << endl;
         }
+    }
+
+    if (stopFlag)
+    {
+        cout << "\nGame interrupted. Exiting..." << endl;
+        return;
     }
 
     printBoard();
@@ -134,6 +160,14 @@ Player TicTacToe::checkWinner()
 void TicTacToe::switchPlayer()
 {
     currentPlayer = (currentPlayer == Player::X) ? Player::O : Player::X;
+}
+
+void TicTacToe::signalHandler(int signal)
+{
+    if (signal == SIGINT)
+    {
+        stopFlag = true;
+    }
 }
 
 int main()
