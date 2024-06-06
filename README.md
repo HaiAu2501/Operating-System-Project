@@ -35,7 +35,7 @@ Tiny Shell là một dự án hữu ích cho những ai muốn tìm hiểu về 
 - **Bước 1:** Tạo bản sao của dự án trên máy tính của bạn.
 
 ```bash
-git clone https://github.com/HaiAu2501/Operating-System-Project.git
+git clone https://github.com/HaiAu2501/Operating-System-Projects.git
 ```
 
 - **Bước 2:** Mở dự án bằng Visual Studio Code hoặc trình biên dịch C++ khác.
