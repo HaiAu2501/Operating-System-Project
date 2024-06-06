@@ -2,6 +2,7 @@
 
 <div align="center">
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=EE4E4E&center=true&vCenter=true&random=false&width=435&lines=Operating+System+Projects" alt="Typing SVG" /></a>
+
 <img alt="Static Badge" src="https://img.shields.io/badge/HUST-course-blue?labelColor=EE4E4E&color=151515">
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/HaiAu2501/Operating-System-Project?labelColor=EE4E4E&color=151515">
 </div>
@@ -64,4 +65,3 @@ g++ -o -std=c++17 main main.cpp
   - `countdown.cpp`: Chương trình đếm ngược.
   - `duck.cpp`: Chương trình vẽ hình con vịt.
   - `tictactoe.cpp`: Chương trình chơi cờ caro.
-  
