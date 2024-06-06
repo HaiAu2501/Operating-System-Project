@@ -1,0 +1,8 @@
+start_countdown
+start_child
+start_foreground Process/countdown.exe
+start_foreground Process/child_process.exe
+duck
+start_foreground Process/duck.exe
+playing
+start_foreground Process/tictactoe.exe
