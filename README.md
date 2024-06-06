@@ -26,3 +26,42 @@ Tiny Shell là một dự án hữu ích cho những ai muốn tìm hiểu về 
 
 - Hệ điều hành Windows 10 hoặc mới hơn.
 - C++ 17 hoặc mới hơn.
+
+### Cài đặt
+
+- **Bước 1:** Tạo bản sao của dự án trên máy tính của bạn.
+
+```bash
+git clone https://github.com/HaiAu2501/Operating-System-Project.git
+```
+
+- **Bước 2:** Mở dự án bằng Visual Studio Code hoặc trình biên dịch C++ khác.
+
+- **Bước 3:** Chuyển đến thư mục `Process` và biên dịch các file mã nguồn trong thư mục Process.
+
+```bash
+g++ -o -std=c++17 child_process child_process.cpp
+g++ -o -std=c++17 countdown countdown.cpp -lgdi32 
+g++ -o -std=c++17 duck duck.cpp
+g++ -o -std=c++17 tictactoe tictactoe.cpp
+```
+
+- **Bước 4:** Chuyển đến thư mục `Practice Project 1 - Tiny Shell` và biên dịch file mã nguồn chính của chương trình.
+
+```bash
+g++ -o -std=c++17 main main.cpp
+```
+
+- **Bước 5:** Chạy chương trình `main.exe`, sau đó nhập các lệnh từ bàn phím để tương tác với Tiny Shell. Bạn nên nhập lệnh `help` để xem danh sách các lệnh hỗ trợ.
+
+### Giải thích
+
+- **Feature:** Thư mục chứa các file header của các tính năng mà Tiny Shell hỗ trợ.
+  - `features.h`: Tổng hợp các file header của các tính năng.
+  - `help.h`: Hiển thị thông tin hướng dẫn sử dụng Tiny Shell.
+- **Process:** Thư mục chứa các chương trình có thể khởi chạy từ Tiny Shell.
+  - `child_process.cpp`: Chương trình con đơn giản.
+  - `countdown.cpp`: Chương trình đếm ngược.
+  - `duck.cpp`: Chương trình vẽ hình con vịt.
+  - `tictactoe.cpp`: Chương trình chơi cờ caro.
+  
