@@ -135,13 +135,13 @@ void handleStartBackgroundCommand(const std::vector<std::string> &args)
 
 void startTicTacToe()
 {
-    std::vector<std::string> args = {"tictactoe.exe"};
+    std::vector<std::string> args = {"Process/tictactoe.exe"};
     startProcessForeground(args);
 }
 
 void startDuck()
 {
-    std::vector<std::string> args = {"duck.exe"};
+    std::vector<std::string> args = {"Process/duck.exe"};
     startProcessForeground(args);
 }
 

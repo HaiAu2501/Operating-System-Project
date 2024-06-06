@@ -18,7 +18,7 @@
 #include "find_child_processes.h"
 #include "manage_threads.h"
 
-// HỆ THỐNG VÀ TIỆN ÍCH (4)
+// HỆ THỐNG VÀ TIỆN ÍCH (5)
 #include "run_script.h"
 #include "show_calculator.h"
 #include "system_utils.h"

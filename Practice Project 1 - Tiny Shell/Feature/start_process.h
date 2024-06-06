@@ -87,13 +87,13 @@ void startProcess(const std::vector<std::string> &args)
 
 void startChildProcess()
 {
-    std::vector<std::string> args = {"child_process.exe"};
+    std::vector<std::string> args = {"Process\\child_process.exe"};
     startProcess(args);
 }
 
 void startCountdownProcess()
 {
-    std::vector<std::string> args = {"countdown.exe"};
+    std::vector<std::string> args = {"Process\\countdown.exe"};
     startProcess(args);
 }
 
