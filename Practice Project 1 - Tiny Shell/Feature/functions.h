@@ -76,16 +76,25 @@ public:
     {
         size_t pos = input.find(' ');
         if (pos == std::string::npos)
+        {
+            std::cout << "Usage: function <name>(<parameters>) return <expression>" << std::endl;
             throw std::runtime_error("Invalid function definition syntax.");
+        }
 
         size_t pos2 = input.find('(', pos);
         if (pos2 == std::string::npos)
+        {
+            std::cout << "Usage: function <name>(<parameters>) return <expression>" << std::endl;
             throw std::runtime_error("Invalid function definition syntax.");
+        }
 
         std::string name = input.substr(pos + 1, pos2 - pos - 1);
         size_t pos3 = input.find(')', pos2);
         if (pos3 == std::string::npos)
+        {
+            std::cout << "Usage: function <name>(<parameters>) return <expression>" << std::endl;
             throw std::runtime_error("Invalid function definition syntax.");
+        }
 
         std::string parameters = input.substr(pos2 + 1, pos3 - pos2 - 1);
         size_t pos4 = input.find("return", pos3);

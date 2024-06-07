@@ -200,7 +200,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         startDuck();
     }
-    if (command == "function")
+    else if (command == "function")
     {
         std::string functionDefinition = "function ";
         for (const std::string &arg : args)
@@ -240,6 +240,15 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
         {
             std::cout << "Usage: evaluate <function_name> <arg1> <arg2> ..." << std::endl;
         }
+    }
+    else if (command == "if")
+    {
+        std::string conditionArgs;
+        for (const std::string &arg : args)
+        {
+            conditionArgs += arg + " ";
+        }
+        executeConditional(conditionArgs, variableManager);
     }
     else
     {
