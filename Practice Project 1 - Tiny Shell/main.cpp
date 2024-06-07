@@ -256,6 +256,18 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "resume_proc") {
         resumeProc(args);
     }
+    else if (command == "get_env") {
+        getEnv(args);
+    }
+    else if (command == "set_env") {
+        setEnv(args);
+    }
+    else if (command == "add_path") {
+        addPath(args);
+    }
+    else if (command == "print_env") {
+        printEnv(args);
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;

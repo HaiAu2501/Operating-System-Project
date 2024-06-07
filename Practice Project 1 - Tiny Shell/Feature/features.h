@@ -18,6 +18,7 @@
 #include "find_child_processes.h"
 #include "manage_threads.h"
 #include "suspend_and_resume_proc.h"
+#include "environment_value.h"
 
 // HỆ THỐNG VÀ TIỆN ÍCH (5)
 #include "run_script.h"
