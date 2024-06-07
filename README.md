@@ -70,4 +70,4 @@ g++ -o -std=c++17 main main.cpp
   - `duck.cpp`: Chương trình vẽ hình con vịt.
   - `tictactoe.cpp`: Chương trình chơi cờ caro.
 
-Chân thành cảm ơn ngài Hòa!
+Chân thành cảm ơn ngài Hòa ạ!
