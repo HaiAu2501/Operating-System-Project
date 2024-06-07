@@ -19,7 +19,7 @@
 #include "manage_threads.h"
 #include "suspend_and_resume.h"
 
-// HỆ THỐNG VÀ TIỆN ÍCH (5)
+// HỆ THỐNG VÀ TIỆN ÍCH (9)
 #include "run_script.h"
 #include "show_calculator.h"
 #include "system_utils.h"
@@ -37,6 +37,8 @@
 #include "history.h"      // Mới cập nhật, cần kiểm tra
 #include "clear_screen.h" // Mới cập nhật, cần kiểm tra
 
-#include "functions.h"
-#include "file.h" // Mới cập nhật, cần kiểm tra
+// TÍNH TOÁN VÀ KIỂM TRA (2)
+#include "functions.h" // Mới cập nhật, cần kiểm tra
+#include "file.h"      // Mới cập nhật, cần kiểm tra
+
 #endif // FEATURES_H

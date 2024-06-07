@@ -19,6 +19,9 @@ FunctionManager functionManager;
 // Tạo đối tượng quản lý biến môi trường
 EnvironmentManager environmentManager;
 
+// Tạo đối tượng để quản lý file
+FileManager fileManager;
+
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -370,9 +373,31 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cout << "Usage: load_env <filename>" << std::endl;
         }
     }
-    else if (command == "echo")
+    else if (command == "write_file")
     {
-        writeFile(args);
+        fileManager.writeFile(args);
+    }
+    else if (command == "read_file")
+    {
+        if (!args.empty())
+        {
+            fileManager.readFile(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: read_file <file_name>" << std::endl;
+        }
+    }
+    else if (command == "file_size")
+    {
+        if (!args.empty())
+        {
+            fileManager.showFileSize(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: file_size <file_name>" << std::endl;
+        }
     }
     else
     {
