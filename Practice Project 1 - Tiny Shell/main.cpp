@@ -16,6 +16,9 @@ VariableManager variableManager;
 // Tạo đối tượng để quản lý hàm
 FunctionManager functionManager;
 
+// Tạo đối tượng quản lý biến môi trường
+EnvironmentManager environmentManager;
+
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -274,21 +277,98 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         resumeProc(args);
     }
-    else if (command == "get_env")
-    {
-        getEnv(args);
-    }
-    else if (command == "set_env")
-    {
-        setEnv(args);
-    }
     else if (command == "add_path")
     {
-        addPath(args);
+        if (!args.empty())
+        {
+            environmentManager.addToPath(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: add_path <path>" << std::endl;
+        }
+    }
+    else if (command == "remove_path")
+    {
+        if (!args.empty())
+        {
+            environmentManager.removeFromPath(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: remove_path <path>" << std::endl;
+        }
     }
     else if (command == "print_env")
     {
-        printEnv(args);
+        if (!args.empty())
+        {
+            environmentManager.printEnv(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: print_env <variable>" << std::endl;
+        }
+    }
+    else if (command == "set_env")
+    {
+        if (args.size() >= 2)
+        {
+            environmentManager.setEnv(args[0], args[1]);
+        }
+        else
+        {
+            std::cout << "Usage: set_env <variable> <value>" << std::endl;
+        }
+    }
+    else if (command == "unset_env")
+    {
+        if (!args.empty())
+        {
+            environmentManager.unsetEnv(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: unset_env <variable>" << std::endl;
+        }
+    }
+    else if (command == "list_env")
+    {
+        environmentManager.listAllEnv();
+    }
+    else if (command == "is_in_path")
+    {
+        if (!args.empty())
+        {
+            bool result = environmentManager.isInPath(args[0]);
+            std::cout << args[0] << (result ? " is" : " is not") << " in PATH." << std::endl;
+        }
+        else
+        {
+            std::cout << "Usage: is_in_path <path>" << std::endl;
+        }
+    }
+    else if (command == "save_env")
+    {
+        if (!args.empty())
+        {
+            environmentManager.saveEnvToFile(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: save_env <filename>" << std::endl;
+        }
+    }
+    else if (command == "load_env")
+    {
+        if (!args.empty())
+        {
+            environmentManager.loadEnvFromFile(args[0]);
+        }
+        else
+        {
+            std::cout << "Usage: load_env <filename>" << std::endl;
+        }
     }
     else
     {

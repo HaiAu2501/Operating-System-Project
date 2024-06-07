@@ -1,8 +1,8 @@
 # Ẩn tất cả các file có đuôi .exe (file thực thi)
-*.exe
+# *.exe -> Phiên bản mới: Cho phép tải về file thực thi
 
 # Ẩn thư mục .vscode
-.vscode/
+# .vscode/ -> Phiên bản mới: Cho phép tải về thư mục .vscode
 
 # Ẩn file lịch sử
 Practice Project 1 - Tiny Shell/history.txt

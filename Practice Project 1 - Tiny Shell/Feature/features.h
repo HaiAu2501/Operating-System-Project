@@ -18,7 +18,6 @@
 #include "find_child_processes.h"
 #include "manage_threads.h"
 #include "suspend_and_resume.h"
-#include "environment_value.h"
 
 // HỆ THỐNG VÀ TIỆN ÍCH (5)
 #include "run_script.h"
@@ -29,6 +28,7 @@
 #include "functions.h"   // Mới cập nhật, cần kiểm tra
 #include "conditional.h" // Mới cập nhật, cần kiểm tra
 #include "set_color.h"   // Mới cập nhật, cần kiểm tra
+#include "environment.h" // Mới cập nhật, cần kiểm tra
 
 // ĐIỀU HƯỚNG VÀ GIAO DIỆN (5)
 #include "navigation.h"
