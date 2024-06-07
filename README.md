@@ -69,3 +69,5 @@ g++ -o -std=c++17 main main.cpp
   - `countdown.cpp`: Chương trình đếm ngược.
   - `duck.cpp`: Chương trình vẽ hình con vịt.
   - `tictactoe.cpp`: Chương trình chơi cờ caro.
+
+Chân thành cảm ơn ngài Hòa!
