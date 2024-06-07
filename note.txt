@@ -15,6 +15,8 @@
 - Gợi ý câu lệnh.
 - Chạy nhiều lệnh song song.
 
+- Thêm lệnh stop(tạm dừng thread của tiến trình)
+
 - LƯU Ý: Mỗi khi thêm 1 tính năng -> chỉnh sửa đồng thời features.h, help.h, main.cpp
 
 - Chú ý khi thuyết trình
@@ -28,3 +30,6 @@ lsdir
 cd 
 runwinapp: chạy ứng dụng của Window trong background (đây là code trên Linux)
 còn thiếu tính năng liệt kê các tiến trình đang chạy, quản lí tiến trình (quan trọng)
+
+- Chú ý câu hỏi ai làm phần nào !!!!
+
