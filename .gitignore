@@ -4,8 +4,8 @@
 # Ẩn thư mục .vscode
 # .vscode/ -> Phiên bản mới: Cho phép tải về thư mục .vscode
 
-# Ẩn file lịch sử
-Practice Project 1 - Tiny Shell/history.txt
+# Ẩn file lịch sử và mọi thứ liên quan
+Practice Project 1 - Tiny Shell/*.txt
 
 # Ẩn thư mục Private
 Private/

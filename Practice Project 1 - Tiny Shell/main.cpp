@@ -370,7 +370,8 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cout << "Usage: load_env <filename>" << std::endl;
         }
     }
-    else if(command=="echo"){
+    else if (command == "echo")
+    {
         writeFile(args);
     }
     else
