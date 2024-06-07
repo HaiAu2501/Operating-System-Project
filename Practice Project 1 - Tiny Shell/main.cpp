@@ -250,10 +250,12 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
         }
         executeConditional(conditionArgs, variableManager);
     }
-    else if (command == "suspend_proc") {
+    else if (command == "suspend")
+    {
         suspendProc(args);
     }
-    else if (command == "resume_proc") {
+    else if (command == "resume")
+    {
         resumeProc(args);
     }
     else if (command == "get_env") {

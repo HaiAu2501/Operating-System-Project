@@ -32,6 +32,8 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "start_child" << ": Start a child process" << std::endl;
     std::cout << std::setw(20) << "manage_threads" << ": Manage threads" << std::endl;
     std::cout << std::setw(20) << "list_children" << ": Print all children processes" << std::endl;
+    std::cout << std::setw(20) << "suspend" << ": Suspend a process" << std::endl;
+    std::cout << std::setw(20) << "resume" << ": Resume a process" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "run" << ": Run a script" << std::endl;
     std::cout << std::setw(20) << "calculator" << ": Open the calculator" << std::endl;
@@ -45,6 +47,7 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "calculate" << ": Calculate expression value" << std::endl;
     std::cout << std::setw(20) << "function" << ": Define a function" << std::endl;
     std::cout << std::setw(20) << "evaluate" << ": Evaluate a function" << std::endl;
+    std::cout << std::setw(20) << "if else" << ": Conditional execution" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "dancing" << ": Show dancing faces" << std::endl;
     std::cout << std::setw(20) << "playing" << ": Start a Tic-Tac-Toe game" << std::endl;
