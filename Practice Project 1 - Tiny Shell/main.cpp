@@ -13,6 +13,9 @@ CommandHistory commandHistory;
 // Tạo đối tượng để quản lý biến
 VariableManager variableManager;
 
+// Tạo đối tượng để quản lý hàm
+FunctionManager functionManager;
+
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -196,6 +199,47 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "duck")
     {
         startDuck();
+    }
+    if (command == "function")
+    {
+        std::string functionDefinition = "function ";
+        for (const std::string &arg : args)
+        {
+            functionDefinition += arg + " ";
+        }
+        try
+        {
+            functionManager.handleFunctionDefinition(functionDefinition);
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
+    }
+    else if (command == "evaluate")
+    {
+        if (args.size() >= 2)
+        {
+            std::string functionName = args[0];
+            std::vector<double> funcArgs;
+            for (size_t i = 1; i < args.size(); ++i)
+            {
+                funcArgs.push_back(std::stod(args[i]));
+            }
+            try
+            {
+                double result = functionManager.evaluateFunction(functionName, funcArgs);
+                std::cout << result << std::endl;
+            }
+            catch (const std::exception &e)
+            {
+                std::cout << "Error: " << e.what() << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Usage: evaluate <function_name> <arg1> <arg2> ..." << std::endl;
+        }
     }
     else
     {

@@ -32,4 +32,6 @@
 #include "history.h"      // Mới cập nhật, cần kiểm tra
 #include "clear_screen.h" // Mới cập nhật, cần kiểm tra
 
+#include "functions.h"
+
 #endif // FEATURES_H
