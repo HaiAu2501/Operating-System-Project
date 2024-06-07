@@ -250,6 +250,12 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
         }
         executeConditional(conditionArgs, variableManager);
     }
+    else if (command == "suspend_proc") {
+        suspendProc(args);
+    }
+    else if (command == "resume_proc") {
+        resumeProc(args);
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
