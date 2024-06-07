@@ -60,6 +60,10 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "save_env" << ": Save environment variables to file" << std::endl;
     std::cout << std::setw(20) << "load_env" << ": Load environment variables from file" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
+    std::cout << std::setw(20) << "write_file" << ": Write content to file" << std::endl;
+    std::cout << std::setw(20) << "read_file" << ": Read content from file" << std::endl;
+    std::cout << std::setw(20) << "file_size" << ": Get file size" << std::endl;
+    std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "dancing" << ": Show dancing faces" << std::endl;
     std::cout << std::setw(20) << "playing" << ": Start a Tic-Tac-Toe game" << std::endl;
     std::cout << std::setw(20) << "duck" << ": Show a duck" << std::endl;
