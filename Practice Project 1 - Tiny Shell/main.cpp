@@ -33,8 +33,24 @@ void printInitialInfo()
     std::cout << "========================================" << std::endl;
 }
 
+ConsoleColor currentColor = ConsoleColor::WHITE;
+
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
+    if (command == "change_color")
+    {
+        if (!args.empty())
+        {
+            currentColor = parseColor(args[0]);
+            setColor(currentColor);
+            std::cout << "Color changed to " << args[0] << std::endl;
+        }
+        else
+        {
+            std::cout << "Usage: change_color <color_name>" << std::endl;
+        }
+        return; // Ensure the color change command exits the function
+    }
     if (command == "delete")
     {
         deleteDirectory(args);
@@ -258,16 +274,20 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         resumeProc(args);
     }
-    else if (command == "get_env") {
+    else if (command == "get_env")
+    {
         getEnv(args);
     }
-    else if (command == "set_env") {
+    else if (command == "set_env")
+    {
         setEnv(args);
     }
-    else if (command == "add_path") {
+    else if (command == "add_path")
+    {
         addPath(args);
     }
-    else if (command == "print_env") {
+    else if (command == "print_env")
+    {
         printEnv(args);
     }
     else
@@ -320,7 +340,12 @@ int main()
 
     while (true)
     {
+        setColor(ConsoleColor::YELLOW);
         std::cout << "tiny_shell> ";
+        resetColor();
+
+        setColor(currentColor);
+
         std::getline(std::cin, input);
 
         if (std::cin.fail() || std::cin.eof())

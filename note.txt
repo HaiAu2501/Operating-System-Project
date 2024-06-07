@@ -15,7 +15,7 @@
 - Gợi ý câu lệnh.
 - Chạy nhiều lệnh song song.
 
-- Thêm lệnh stop(tạm dừng thread của tiến trình)
+- Thêm lệnh stop (tạm dừng thread của tiến trình): DONE.
 
 - LƯU Ý: Mỗi khi thêm 1 tính năng -> chỉnh sửa đồng thời features.h, help.h, main.cpp
 
@@ -27,7 +27,7 @@ Khi thuyết trình cần cả nhóm cùng lên
 help
 man: thông tin của câu lệnh được cung cấp
 lsdir
-cd 
+cd: DONE
 runwinapp: chạy ứng dụng của Window trong background (đây là code trên Linux)
 còn thiếu tính năng liệt kê các tiến trình đang chạy, quản lí tiến trình (quan trọng)
 
