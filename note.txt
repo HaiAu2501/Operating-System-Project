@@ -16,3 +16,15 @@
 - Chạy nhiều lệnh song song.
 
 - LƯU Ý: Mỗi khi thêm 1 tính năng -> chỉnh sửa đồng thời features.h, help.h, main.cpp
+
+- Chú ý khi thuyết trình
+Gửi tiny shell + slide cho thầy trước buổi thuyết trình
+Khi thuyết trình cần cả nhóm cùng lên
+
+- Các tính năng của nhóm Triệu
+help
+man: thông tin của câu lệnh được cung cấp
+lsdir
+cd 
+runwinapp: chạy ứng dụng của Window trong background (đây là code trên Linux)
+còn thiếu tính năng liệt kê các tiến trình đang chạy, quản lí tiến trình (quan trọng)
