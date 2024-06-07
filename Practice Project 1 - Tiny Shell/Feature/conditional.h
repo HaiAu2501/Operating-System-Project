@@ -120,12 +120,6 @@ void executeConditional(const std::string &args, VariableManager &variableManage
     std::string ifCmd = ifTokens[0];
     ifTokens.erase(ifTokens.begin());
 
-    for (const auto &token : ifTokens)
-    {
-        std::cout << token << " ";
-    }
-    std::cout << std::endl;
-
     // Tách command và args cho vế else
     std::vector<std::string> elseTokens = splitInput(elseCommand);
     if (elseTokens.empty())
@@ -134,12 +128,6 @@ void executeConditional(const std::string &args, VariableManager &variableManage
     }
     std::string elseCmd = elseTokens[0];
     elseTokens.erase(elseTokens.begin());
-
-    for (const auto &token : elseTokens)
-    {
-        std::cout << token << " ";
-    }
-    std::cout << std::endl;
 
     // Thực thi lệnh dựa trên kết quả của biểu thức điều kiện
     if (evaluateCondition(condition, variableManager))

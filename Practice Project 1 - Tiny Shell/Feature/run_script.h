@@ -5,13 +5,6 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "delete_directory.h"
-#include "move_directory.h"
-#include "open_file.h"
-#include "exit_shell.h"
-#include "list_directory_tree.h"
-#include "create_directory.h"
-#include "copy_directory.h"
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args);
 
