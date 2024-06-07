@@ -10,7 +10,9 @@
   - Đổi màu syntax.
 - Khả năng thực hiện câu lệnh điều kiện, chẳng hạn if - else.
 - Khả năng đọc và trực quan hóa dữ liệu từ file csv.
-- Hỗ trợ định nghĩa hàm.
+- Hỗ trợ định nghĩa hàm: DONE.
 - Tạo GUI tương tác.
 - Gợi ý câu lệnh.
 - Chạy nhiều lệnh song song.
+
+- LƯU Ý: Mỗi khi thêm 1 tính năng -> chỉnh sửa đồng thời features.h, help.h, main.cpp
