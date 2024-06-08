@@ -1,0 +1,2 @@
+change_color red
+cpuinfo

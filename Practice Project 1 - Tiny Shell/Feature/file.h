@@ -25,22 +25,12 @@ public:
     {
         if (args.size() < 2)
         {
-            std::cerr << "Usage: echo \"string\" \"filename\"" << std::endl;
+            std::cerr << "Usage: write_file <content> <filename>" << std::endl;
             return;
         }
 
         std::string content = args[0];
         std::string filename = args[1];
-
-        // Remove quotes from content and filename
-        if (content.front() == '\"' && content.back() == '\"')
-        {
-            content = content.substr(1, content.size() - 2);
-        }
-        if (filename.front() == '\"' && filename.back() == '\"')
-        {
-            filename = filename.substr(1, filename.size() - 2);
-        }
 
         std::ofstream file(filename, std::ios::app);
         if (!file)

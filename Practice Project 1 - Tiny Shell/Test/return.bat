@@ -1,1 +1,0 @@
-delete "New Folder"
