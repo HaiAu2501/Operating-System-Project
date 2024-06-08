@@ -1,4 +1,4 @@
---- [01] Lỗi xử lý tokens: FIXED 
+--- [01] Lỗi xử lý tokens: FIXED ⭐
     calculate (x + 1) // Tokens: '(x', '+', '1)' -> Phân tích sai
     => Buộc phải viết là calculate ( x + 1 ) -> Bất tiện
     => Như vậy các dấu ngoặc và toán tử tách thành token riêng
@@ -6,35 +6,35 @@
     Token sẽ là dấu phẩy, dấu ngoặc, kí tự liền nhau hoặc là toán tử, hoặc là quote
     Ví dụ: function f(x) "x*x" => tokens: ["function", "f", "(", "x", ",", "y", ")", "\"x + y\""]
 
---- [02] Lỗi hàm có tham số trùng nhau: FIXED 
+--- [02] Lỗi hàm có tham số trùng nhau: FIXED ⭐
     function h(x, x) "x"
     evaluate h 1 2 // Kết quả in ra: 1
 --> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
---- [03] Lỗi không tính được giá trị hàm khi biểu thức có biến toàn cục: FIXED
+--- [03] Lỗi không tính được giá trị hàm khi biểu thức có biến toàn cục: FIXED ⭐
     set_env z 2
     function h(x) "x + z"
     evaluate h 1 // Không tính được
 --> [CHO PHÉP LẤY GIÁ TRỊ BIẾN MÔI TRƯỜNG GÁN VÀO]
 
---- [04] Lỗi khi truyền giá trị cụ thể: FIXED
+--- [04] Lỗi khi truyền giá trị cụ thể: FIXED ⭐
     function f(1) "1 + 1" // Không được định nghĩa như vậy
 --> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
---- [05] Lỗi khi truyền toán tử: FIXED
+--- [05] Lỗi khi truyền toán tử: FIXED ⭐
     function f(x+y,z) 
     function f(f(x)) 
     function f(())
 --> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
---- [06] Lỗi không thể dừng tiến trình: SOLVED
+--- [06] Lỗi không thể dừng tiến trình: SOLVED ✅
     start notepad.exe // notepad lúc này có PID
     terminate PID của notepad // -> Không được trên Windows 11 | Được trên Windows 10
 --> [SỰ KHÁC BIỆT CỦA WINDOWS 11]
     Khi bắt đầu 1 tiến trình, nó tạo ra tiến trình con (hiển thị notepad) rồi lập tức kết thúc
     Như vậy muốn dừng tiến trình notepad, phải tìm PID của tiến trình con nó tạo ra và sử dụng PID đó.
 
---- [07] Lỗi không hiện tiến trình con trên Task Manager: SOLVED
+--- [07] Lỗi không hiện tiến trình con trên Task Manager: SOLVED ✅
     start_child // -> Tìm trong Task Manager (Windows 11) không thấy child_process là tiến trình con của main.exe
     Hơn nữa, main.exe nằm ở Background Processes thay vì Apps
 --> [CÁCH TASK MANAGER LIỆT KÊ TIẾN TRÌNH]
@@ -42,26 +42,31 @@
     Để kiểm tra child_process có là tiến trình con của main không thì tìm PID tất cả tiến trình con của main
     Và kết quả là child_process có là tiến trình con của main, nhưng không được liệt kê
 
---- [08] Lỗi không chạy được foreground: SOLVED
+--- [08] Lỗi không chạy được foreground: SOLVED ✅
     start_foreground notepad.exe // Không thấy foreground, shell vẫn chuyển đến dòng mới mà không đợi notepad tắt
 --> [SỰ KHÁC BIỆT CỦA WINDOWS 11]
     Như [06], khi notepad được khởi động, nó là tiến trình cha và tạo 1 tiến trình con rồi lập tức kết thúc
     Muốn đợi notepad, ta sẽ đợi mọi tiến trình con của nó tạo ra kết thúc, thay vì chỉ đợi nó
 
---- [09] Lỗi liên quan đến Ctrl + C: FIXED
+--- [09] Lỗi liên quan đến Ctrl + C: FIXED ⭐
     Khi shell đang bắt đầu dòng 'tiny_shell>' mà ấn Ctrl + C thì bị thoát
     Trong shell khởi động foreground chính shell (start_foreground main.exe) và ấn Ctrl + C
     -> Bị in ra vài lần từ 'tiny_shell>' trước khi trở về shell cha
 --> [CÁCH XỬ LÝ TÍN HIỆU CTRL + C]
     Xem chi tiết trong main.cpp hiện tại
 
---- [10] Lỗi tô màu cho syntax: UNSOLVED | REMOVED
+--- [10] Lỗi tô màu cho syntax: UNSOLVED | REMOVED ❌
     Tính năng đọc lệnh realtime và chuyển màu nếu gặp phải từ khóa mà shell hỗ trợ
     Ví dụ: function thì gõ đến function sẽ chuyển vàng
     -> Làm lỗi nhận tín hiệu Ctrl + C
     -> Vẫn không giải quyết được, tính năng đã bị loại bỏ
 
 ###### TEMPLATE BUG RECORD ######
---- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA?]
+--- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
+
+    SOLVED: Đã giải thích được nguyên nhân, đây không phải lỗi
+    FIXED: Đã công nhận là lỗi và đã sửa, kèm theo cách giải quyết
+    REMOVED: Không thể tìm được nguyên nhân, không thể giải thích nên đã loại bỏ phần chứa lỗi và các phần liên quan đến lỗi
+
     [Tab: 4 spaces] Dòng lệnh gây lỗi
 --> [CÁCH GIẢI QUYẾT]
