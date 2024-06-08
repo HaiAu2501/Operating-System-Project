@@ -242,6 +242,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cout << "Error: " << e.what() << std::endl;
         }
     }
+    else if (command == "if")
+    {
+        handleIfElse(args, variableManager);
+    }
     // else if (command == "function")
     // {
     //     std::string functionDefinition = "function ";
@@ -459,7 +463,7 @@ std::vector<std::string> splitInput(const std::string &input)
                 token.clear();
             }
         }
-        else if ((ch == '(' || ch == ')' || ch == ',' || ch == '+' || ch == '-' || ch == '*' || ch == '/') && !inQuotes)
+        else if ((ch == '(' || ch == ')' || ch == ',' || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '<' || ch == '>') && !inQuotes)
         {
             if (!token.empty())
             {
