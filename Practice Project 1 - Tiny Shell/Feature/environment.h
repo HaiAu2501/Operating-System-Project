@@ -62,7 +62,7 @@ public:
         std::string value = getEnv(var);
         if (!value.empty())
         {
-            std::cout << var << "=" << value << std::endl;
+            std::cout << var << " = " << value << std::endl;
         }
         else
         {
@@ -146,14 +146,10 @@ private:
     // Hàm để lấy giá trị của biến môi trường
     std::string getEnv(const std::string &var)
     {
-        char *value;
-        size_t len;
-        _dupenv_s(&value, &len, var.c_str());
+        const char *value = getenv(var.c_str());
         if (value)
         {
-            std::string result(value);
-            free(value);
-            return result;
+            return std::string(value);
         }
         return "";
     }
