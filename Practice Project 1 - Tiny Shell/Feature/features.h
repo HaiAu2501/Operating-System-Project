@@ -23,10 +23,10 @@
 #include "run_script.h"
 #include "show_calculator.h"
 #include "system_utils.h"
-#include "variables.h"   // Mới cập nhật, cần kiểm tra
-#include "dancing.h"     // Mới cập nhật, cần kiểm tra
-#include "functions.h"   // Mới cập nhật, cần kiểm tra
-#include "conditional.h" // Mới cập nhật, cần kiểm tra
+#include "variables.h" // Mới cập nhật, cần kiểm tra
+#include "dancing.h"   // Mới cập nhật, cần kiểm tra
+#include "function.h"  // Mới cập nhật, cần kiểm tra
+// #include "conditional.h" // Mới cập nhật, cần kiểm tra
 #include "set_color.h"   // Mới cập nhật, cần kiểm tra
 #include "environment.h" // Mới cập nhật, cần kiểm tra
 
@@ -38,7 +38,6 @@
 #include "clear_screen.h" // Mới cập nhật, cần kiểm tra
 
 // TÍNH TOÁN VÀ KIỂM TRA (2)
-#include "functions.h" // Mới cập nhật, cần kiểm tra
-#include "file.h"      // Mới cập nhật, cần kiểm tra
+#include "file.h" // Mới cập nhật, cần kiểm tra
 
 #endif // FEATURES_H

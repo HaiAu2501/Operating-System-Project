@@ -1,188 +1,155 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
 
-#include <map>
 #include <string>
-#include <sstream>
-#include <iostream>
-#include <cstdlib>
-#include <cctype>
-#include <stdexcept>
-#include <stack>
 #include <vector>
+#include <stack>
+#include <sstream>
+#include <stdexcept>
+#include <cctype>
 #include <algorithm>
+#include "environment.h"
 
 class VariableManager
 {
-private:
-    std::map<std::string, std::string> variables;
+public:
+    VariableManager(EnvironmentManager &envMgr) : envManager(envMgr) {}
 
-    bool isOperator(char c)
+    double evaluateExpression(const std::vector<std::string> &tokens)
     {
-        return c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')';
+        std::vector<std::string> infixExpression;
+
+        // Bước 1: Duyệt qua tokens và thay thế các biến bằng giá trị của chúng
+        for (const std::string &token : tokens)
+        {
+            if (isOperator(token) || isParenthesis(token))
+            {
+                infixExpression.push_back(token);
+            }
+            else if (isNumber(token))
+            {
+                infixExpression.push_back(token);
+            }
+            else
+            {
+                // Token là toán hạng (biến)
+                std::string value = envManager.getEnv(token);
+                if (value.empty())
+                {
+                    throw std::runtime_error("Error: Variable " + token + " not set.");
+                }
+                infixExpression.push_back(value);
+            }
+        }
+
+        // Bước 2: Chuyển biểu thức infix sang postfix
+        std::vector<std::string> postfixExpression = infixToPostfix(infixExpression);
+
+        // Bước 3: Tính giá trị biểu thức postfix
+        return evaluatePostfix(postfixExpression);
     }
 
-    int precedence(char op)
+private:
+    EnvironmentManager &envManager;
+
+    bool isOperator(const std::string &token)
     {
-        if (op == '+' || op == '-')
+        return token == "+" || token == "-" || token == "*" || token == "/";
+    }
+
+    bool isParenthesis(const std::string &token)
+    {
+        return token == "(" || token == ")";
+    }
+
+    bool isNumber(const std::string &token)
+    {
+        return !token.empty() && std::all_of(token.begin(), token.end(), ::isdigit);
+    }
+
+    int getPrecedence(const std::string &op)
+    {
+        if (op == "+" || op == "-")
             return 1;
-        if (op == '*' || op == '/')
+        if (op == "*" || op == "/")
             return 2;
         return 0;
     }
 
-    double applyOperation(double a, double b, char op)
+    std::vector<std::string> infixToPostfix(const std::vector<std::string> &infix)
     {
-        switch (op)
-        {
-        case '+':
-            return a + b;
-        case '-':
-            return a - b;
-        case '*':
-            return a * b;
-        case '/':
-            if (b == 0)
-                throw std::runtime_error("Division by zero.");
-            return a / b;
-        default:
-            throw std::runtime_error("Invalid operator.");
-        }
-    }
+        std::vector<std::string> postfix;
+        std::stack<std::string> stack;
 
-    std::vector<std::string> tokenize(const std::string &expression)
-    {
-        std::vector<std::string> tokens;
-        std::string token;
-        for (size_t i = 0; i < expression.size(); ++i)
+        for (const std::string &token : infix)
         {
-            char c = expression[i];
-            if (std::isspace(c))
-                continue;
-
-            if (isOperator(c))
+            if (isOperator(token))
             {
-                if (!token.empty())
+                while (!stack.empty() && getPrecedence(stack.top()) >= getPrecedence(token))
                 {
-                    tokens.push_back(token);
-                    token.clear();
+                    postfix.push_back(stack.top());
+                    stack.pop();
                 }
-                tokens.push_back(std::string(1, c));
+                stack.push(token);
+            }
+            else if (token == "(")
+            {
+                stack.push(token);
+            }
+            else if (token == ")")
+            {
+                while (!stack.empty() && stack.top() != "(")
+                {
+                    postfix.push_back(stack.top());
+                    stack.pop();
+                }
+                stack.pop(); // Pop '('
             }
             else
             {
-                token += c;
+                // Token là toán hạng
+                postfix.push_back(token);
             }
         }
-        if (!token.empty())
+
+        while (!stack.empty())
         {
-            tokens.push_back(token);
+            postfix.push_back(stack.top());
+            stack.pop();
         }
-        return tokens;
+
+        return postfix;
     }
 
     double evaluatePostfix(const std::vector<std::string> &postfix)
     {
-        std::stack<double> values;
+        std::stack<double> stack;
+
         for (const std::string &token : postfix)
         {
-            if (std::isdigit(token[0]) || (token[0] == '-' && token.size() > 1 && std::isdigit(token[1])))
+            if (isOperator(token))
             {
-                values.push(std::stod(token));
-            }
-            else if (isOperator(token[0]) && token.size() == 1)
-            {
-                double b = values.top();
-                values.pop();
-                double a = values.top();
-                values.pop();
-                values.push(applyOperation(a, b, token[0]));
+                double b = stack.top();
+                stack.pop();
+                double a = stack.top();
+                stack.pop();
+
+                if (token == "+")
+                    stack.push(a + b);
+                else if (token == "-")
+                    stack.push(a - b);
+                else if (token == "*")
+                    stack.push(a * b);
+                else if (token == "/")
+                    stack.push(a / b);
             }
             else
             {
-                values.push(std::stod(variables[token]));
+                stack.push(std::stod(token));
             }
         }
-        return values.top();
-    }
 
-    std::vector<std::string> infixToPostfix(const std::vector<std::string> &tokens)
-    {
-        std::stack<char> ops;
-        std::vector<std::string> postfix;
-        for (const std::string &token : tokens)
-        {
-            if (std::isdigit(token[0]) || (!isOperator(token[0]) && token.size() > 1) || std::isalpha(token[0]))
-            {
-                postfix.push_back(token);
-            }
-            else if (token == "(")
-            {
-                ops.push('(');
-            }
-            else if (token == ")")
-            {
-                while (!ops.empty() && ops.top() != '(')
-                {
-                    postfix.push_back(std::string(1, ops.top()));
-                    ops.pop();
-                }
-                if (!ops.empty())
-                    ops.pop();
-            }
-            else if (isOperator(token[0]))
-            {
-                while (!ops.empty() && precedence(ops.top()) >= precedence(token[0]))
-                {
-                    postfix.push_back(std::string(1, ops.top()));
-                    ops.pop();
-                }
-                ops.push(token[0]);
-            }
-        }
-        while (!ops.empty())
-        {
-            postfix.push_back(std::string(1, ops.top()));
-            ops.pop();
-        }
-        return postfix;
-    }
-
-public:
-    void setVariable(const std::string &name, const std::string &value)
-    {
-        variables[name] = value;
-    }
-
-    std::string getVariable(const std::string &name)
-    {
-        return variables[name];
-    }
-
-    double evaluateExpression(const std::string &expression)
-    {
-        std::vector<std::string> tokens = tokenize(expression);
-        std::vector<std::string> postfix = infixToPostfix(tokens);
-        return evaluatePostfix(postfix);
-    }
-
-    bool isAssignment(const std::string &input)
-    {
-        return input.find('=') != std::string::npos;
-    }
-
-    void handleAssignment(const std::string &input)
-    {
-        std::istringstream iss(input);
-        std::string variable, expression;
-        if (std::getline(iss, variable, '='))
-        {
-            std::getline(iss, expression);
-            variable.erase(std::remove_if(variable.begin(), variable.end(), ::isspace), variable.end());
-            double result = evaluateExpression(expression);
-            setVariable(variable, std::to_string(result));
-            std::cout << variable << " = " << result << std::endl;
-        }
+        return stack.top();
     }
 };
 

@@ -10,14 +10,14 @@
 // Tạo đối tượng lưu trữ lịch sử các câu lệnh
 CommandHistory commandHistory;
 
-// Tạo đối tượng để quản lý biến
-VariableManager variableManager;
-
 // Tạo đối tượng để quản lý hàm
 FunctionManager functionManager;
 
 // Tạo đối tượng quản lý biến môi trường
 EnvironmentManager environmentManager;
+
+// Tạo đối tượng quản lý biến
+VariableManager variableManager(environmentManager);
 
 // Tạo đối tượng để quản lý file
 FileManager fileManager;
@@ -188,16 +188,13 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "calculate")
     {
+        // Nếu có tham số truyền vào thì thực hiện tính toán
         if (!args.empty())
         {
-            std::string expression;
-            for (const std::string &arg : args)
-            {
-                expression += arg + " ";
-            }
+            // Gọi hàm evaluateExpression từ biến variableManager để tính toán biểu thức
             try
             {
-                double result = variableManager.evaluateExpression(expression);
+                double result = variableManager.evaluateExpression(args);
                 std::cout << result << std::endl;
             }
             catch (const std::exception &e)
@@ -224,14 +221,9 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "function")
     {
-        std::string functionDefinition = "function ";
-        for (const std::string &arg : args)
-        {
-            functionDefinition += arg + " ";
-        }
         try
         {
-            functionManager.handleFunctionDefinition(functionDefinition);
+            functionManager.defineFunction(args);
         }
         catch (const std::exception &e)
         {
@@ -240,38 +232,66 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "evaluate")
     {
-        if (args.size() >= 2)
+        try
         {
-            std::string functionName = args[0];
-            std::vector<double> funcArgs;
-            for (size_t i = 1; i < args.size(); ++i)
-            {
-                funcArgs.push_back(std::stod(args[i]));
-            }
-            try
-            {
-                double result = functionManager.evaluateFunction(functionName, funcArgs);
-                std::cout << result << std::endl;
-            }
-            catch (const std::exception &e)
-            {
-                std::cout << "Error: " << e.what() << std::endl;
-            }
+            double result = functionManager.evaluateFunction(args, variableManager);
+            std::cout << result << std::endl;
         }
-        else
+        catch (const std::exception &e)
         {
-            std::cout << "Usage: evaluate <function_name> <arg1> <arg2> ..." << std::endl;
+            std::cout << "Error: " << e.what() << std::endl;
         }
     }
-    else if (command == "if")
-    {
-        std::string conditionArgs;
-        for (const std::string &arg : args)
-        {
-            conditionArgs += arg + " ";
-        }
-        executeConditional(conditionArgs, variableManager);
-    }
+    // else if (command == "function")
+    // {
+    //     std::string functionDefinition = "function ";
+    //     for (const std::string &arg : args)
+    //     {
+    //         functionDefinition += arg + " ";
+    //     }
+    //     try
+    //     {
+    //         functionManager.handleFunctionDefinition(functionDefinition);
+    //     }
+    //     catch (const std::exception &e)
+    //     {
+    //         std::cout << "Error: " << e.what() << std::endl;
+    //     }
+    // }
+    // else if (command == "evaluate")
+    // {
+    //     if (args.size() >= 2)
+    //     {
+    //         std::string functionName = args[0];
+    //         std::vector<double> funcArgs;
+    //         for (size_t i = 1; i < args.size(); ++i)
+    //         {
+    //             funcArgs.push_back(std::stod(args[i]));
+    //         }
+    //         try
+    //         {
+    //             double result = functionManager.evaluateFunction(functionName, funcArgs);
+    //             std::cout << result << std::endl;
+    //         }
+    //         catch (const std::exception &e)
+    //         {
+    //             std::cout << "Error: " << e.what() << std::endl;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         std::cout << "Usage: evaluate <function_name> <arg1> <arg2> ..." << std::endl;
+    //     }
+    // }
+    // else if (command == "if")
+    // {
+    //     std::string conditionArgs;
+    //     for (const std::string &arg : args)
+    //     {
+    //         conditionArgs += arg + " ";
+    //     }
+    //     executeConditional(conditionArgs, variableManager);
+    // }
     else if (command == "suspend")
     {
         suspendProc(args);
@@ -405,18 +425,28 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
 }
 
+// Hàm này để tách input thành các tokens, mỗi token là một phần của input
+/* Ví dụ:
+ | Input: calcualte 1 + 2 => tokens: ["calculate", "1", "+", "2"]
+ | Input write_file "Hello World" "output.txt" => tokens: ["write_file", "Hello World", "output.txt"]
+ | Một số trường hợp khi toán tử (các dấu ngoặc, +, -, *, /) không có khoảng trắng ở giữa,
+ | cần phải tách ra thành các token riêng biệt.
+ | Ví dụ: calculate (1+2) => tokens: ["calculate", "(", "1", "+", "2", ")"]
+ */
 std::vector<std::string> splitInput(const std::string &input)
 {
     std::vector<std::string> tokens;
     std::string token;
     bool inQuotes = false;
+
     for (char ch : input)
     {
         if (ch == '\"')
         {
             inQuotes = !inQuotes;
+            token += ch;
         }
-        else if (ch == ' ' && !inQuotes)
+        else if (isspace(ch) && !inQuotes)
         {
             if (!token.empty())
             {
@@ -424,15 +454,26 @@ std::vector<std::string> splitInput(const std::string &input)
                 token.clear();
             }
         }
+        else if ((ch == '(' || ch == ')' || ch == ',' || ch == '+' || ch == '-' || ch == '*' || ch == '/') && !inQuotes)
+        {
+            if (!token.empty())
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
+            tokens.push_back(std::string(1, ch));
+        }
         else
         {
             token += ch;
         }
     }
+
     if (!token.empty())
     {
         tokens.push_back(token);
     }
+
     return tokens;
 }
 
@@ -467,20 +508,21 @@ int main()
         // Ghi câu lệnh vào lịch sử
         commandHistory.add(input);
 
-        // Kiểm tra và xử lý lệnh gán giá trị cho biến
-        if (variableManager.isAssignment(input))
-        {
-            variableManager.handleAssignment(input);
-            continue;
-        }
-
         // splitInput để tách input thành các tokens
         std::vector<std::string> tokens = splitInput(input);
 
         if (tokens.empty())
             continue;
 
+        // Lấy lệnh từ tokens, là phần tử đầu tiên
+        /* Ví dụ:
+         | Input: calculate 1 + 2 => tokens: ["calculate", "1", "+", "2"] => command: "calculate"
+         | Input write_file "Hello World" "output.txt" => tokens: ["write_file", "Hello World", "output.txt"] => command: "write_file"
+         | Thành phần này quyết định hành động tiếp theo sẽ được thực hiện.
+         */
         std::string command = tokens[0];
+
+        // Xóa lệnh ra khỏi tokens => tokens chỉ còn các tham số của lệnh
         tokens.erase(tokens.begin());
 
         // Xử lý các lệnh còn lại

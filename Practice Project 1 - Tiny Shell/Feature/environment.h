@@ -142,7 +142,6 @@ public:
         std::cout << "Environment variables loaded from " << filename << std::endl;
     }
 
-private:
     // Hàm để lấy giá trị của biến môi trường
     std::string getEnv(const std::string &var)
     {
