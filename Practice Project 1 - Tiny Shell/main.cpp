@@ -429,9 +429,14 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
 /* Ví dụ:
  | Input: calcualte 1 + 2 => tokens: ["calculate", "1", "+", "2"]
  | Input write_file "Hello World" "output.txt" => tokens: ["write_file", "Hello World", "output.txt"]
- | Một số trường hợp khi toán tử (các dấu ngoặc, +, -, *, /) không có khoảng trắng ở giữa,
+ |
+ | [!] Một số trường hợp khi toán tử (các dấu ngoặc, +, -, *, /) không có khoảng trắng ở giữa,
  | cần phải tách ra thành các token riêng biệt.
  | Ví dụ: calculate (1+2) => tokens: ["calculate", "(", "1", "+", "2", ")"]
+ |
+ | [!] Một số trường hợp khi có dấu ngoặc kép, cần phải giữ nguyên nội dung trong dấu ngoặc.
+ | Và nếu gặp dấu phẩy (,) thì cũng cần phải tách ra thành token riêng biệt.
+ | Ví dụ: function f(x, y) "x + y" => tokens: ["function", "f", "(", "x", ",", "y", ")", "\"x + y\""]
  */
 std::vector<std::string> splitInput(const std::string &input)
 {

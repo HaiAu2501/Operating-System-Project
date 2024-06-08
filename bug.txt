@@ -1,0 +1,21 @@
+[01] Lỗi xử lý tokens: FIXED
+---
+calculate (x + 1) // Tokens: '(x', '+', '1)' -> Phân tích sai
+Buộc phải viết là calculate ( x + 1 ) -> Bất tiện
+Như vậy các dấu ngoặc và toán tử tách thành token riêng
+---
+
+[02] Lỗi hàm có tham số trùng nhau: FIXED
+---
+function h(x, x) "x"
+evaluate h 1 2 // Kết quả in ra: 1
+---
+
+[03] Lỗi không tính được giá trị hàm khi biểu thức có biến toàn cục: FIXED
+---
+set_env z 2
+function h(x) "x + z"
+evaluate h 1 // Không tính được
+---
+
+[04]
