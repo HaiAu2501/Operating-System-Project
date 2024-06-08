@@ -29,7 +29,7 @@ public:
     {
         if (args.size() < 5) // function_name ( param_list ) "expression"
         {
-            throw std::runtime_error("Usage: function <name>(<params>) <expression>");
+            throw std::runtime_error("Usage: function <name>(<params>) \"<expression>\"");
         }
 
         std::string functionName = args[0]; // "f"
