@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <stdexcept>
 #include <sstream>
 #include "variables.h"
@@ -27,19 +28,25 @@ class FunctionManager
 public:
     void defineFunction(const std::vector<std::string> &args)
     {
-        if (args.size() < 5) // function_name ( param_list ) "expression"
+        if (args.size() < 5) // function name ( param_list ) "expression"
         {
-            throw std::runtime_error("Usage: function <name>(<params>) \"<expression>\"");
+            throw std::runtime_error("Usage: function <name>(<params>) <expression>");
         }
 
         std::string functionName = args[0]; // "f"
         std::vector<std::string> parameters;
+        std::unordered_set<std::string> uniqueParams;
 
         size_t i = 2; // Start after '('
         while (i < args.size() && args[i] != ")")
         {
             if (args[i] != ",")
             {
+                if (uniqueParams.find(args[i]) != uniqueParams.end())
+                {
+                    throw std::runtime_error("Duplicate parameter: " + args[i]);
+                }
+                uniqueParams.insert(args[i]);
                 parameters.push_back(args[i]);
             }
             ++i;
@@ -102,13 +109,45 @@ public:
             }
         }
 
-        // Tokenize và đánh giá biểu thức
+        // Kiểm tra và thay thế các biến không phải là tham số
         std::vector<std::string> tokens = splitInput(evaluatedExpression);
+        for (auto &token : tokens)
+        {
+            if (!isOperator(token) && !isNumber(token) && !isParenthesis(token))
+            {
+                if (std::find(function.parameters.begin(), function.parameters.end(), token) == function.parameters.end())
+                {
+                    std::string value = variableManager.envManager.getEnv(token);
+                    if (value.empty())
+                    {
+                        throw std::runtime_error("Error: Variable " + token + " not set.");
+                    }
+                    token = value;
+                }
+            }
+        }
+
+        // Đánh giá biểu thức
         return variableManager.evaluateExpression(tokens);
     }
 
 private:
     std::unordered_map<std::string, Function> functions;
+
+    bool isOperator(const std::string &token)
+    {
+        return token == "+" || token == "-" || token == "*" || token == "/";
+    }
+
+    bool isNumber(const std::string &token)
+    {
+        return !token.empty() && std::all_of(token.begin(), token.end(), ::isdigit);
+    }
+
+    bool isParenthesis(const std::string &token)
+    {
+        return token == "(" || token == ")";
+    }
 };
 
 #endif // FUNCTION_H

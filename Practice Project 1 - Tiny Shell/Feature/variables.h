@@ -13,6 +13,8 @@
 class VariableManager
 {
 public:
+    EnvironmentManager &envManager;
+
     VariableManager(EnvironmentManager &envMgr) : envManager(envMgr) {}
 
     double evaluateExpression(const std::vector<std::string> &tokens)
@@ -50,8 +52,6 @@ public:
     }
 
 private:
-    EnvironmentManager &envManager;
-
     bool isOperator(const std::string &token)
     {
         return token == "+" || token == "-" || token == "*" || token == "/";
