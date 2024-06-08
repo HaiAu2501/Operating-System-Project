@@ -73,7 +73,16 @@ public:
     // Hàm để thiết lập giá trị của biến môi trường
     void setEnv(const std::string &var, const std::string &value)
     {
-        _putenv_s(var.c_str(), value.c_str());
+        // Kiểm tra xem value có phải là một biến môi trường khác hay không
+        std::string actualValue = getEnv(value);
+        if (!actualValue.empty())
+        {
+            _putenv_s(var.c_str(), actualValue.c_str());
+        }
+        else
+        {
+            _putenv_s(var.c_str(), value.c_str());
+        }
     }
 
     // Hàm để xóa biến môi trường
