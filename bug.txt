@@ -61,6 +61,16 @@
     -> Làm lỗi nhận tín hiệu Ctrl + C
     -> Vẫn không giải quyết được, tính năng đã bị loại bỏ
 
+--- [11] Lỗi gán biến đã có giá trị cho biến mới:
+    set_env x 1
+    set_env y x
+    print_env y // -> y = x (x là kí tự trong khi x đang có giá trị 1)
+
+--- [12] Lỗi định nghĩa hàm hằng không tham số:
+    function f() "1"
+    funtion f(,) "1"
+    evaluate f
+
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
 
