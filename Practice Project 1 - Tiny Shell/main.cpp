@@ -244,7 +244,14 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "if")
     {
-        handleIfElse(args, variableManager);
+        if (args.size() < 1)
+        {
+            std::cout << "Usage: if (<condition>): <command> else <command>" << std::endl;
+        }
+        else
+        {
+            handleIfElse(args, variableManager);
+        }
     }
     // else if (command == "function")
     // {

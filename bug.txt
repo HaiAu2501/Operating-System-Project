@@ -27,6 +27,40 @@
     function f(())
 --> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
+--- [06] Lỗi không thể dừng tiến trình: SOLVED
+    start notepad.exe // notepad lúc này có PID
+    terminate PID của notepad // -> Không được trên Windows 11 | Được trên Windows 10
+--> [SỰ KHÁC BIỆT CỦA WINDOWS 11]
+    Khi bắt đầu 1 tiến trình, nó tạo ra tiến trình con (hiển thị notepad) rồi lập tức kết thúc
+    Như vậy muốn dừng tiến trình notepad, phải tìm PID của tiến trình con nó tạo ra và sử dụng PID đó.
+
+--- [07] Lỗi không hiện tiến trình con trên Task Manager: SOLVED
+    start_child // -> Tìm trong Task Manager (Windows 11) không thấy child_process là tiến trình con của main.exe
+    Hơn nữa, main.exe nằm ở Background Processes thay vì Apps
+--> [CÁCH TASK MANAGER LIỆT KÊ TIẾN TRÌNH]
+    Task Manage liệt kê tiến trình và nhóm tiến trình không đúng.
+    Để kiểm tra child_process có là tiến trình con của main không thì tìm PID tất cả tiến trình con của main
+    Và kết quả là child_process có là tiến trình con của main, nhưng không được liệt kê
+
+--- [08] Lỗi không chạy được foreground: SOLVED
+    start_foreground notepad.exe // Không thấy foreground, shell vẫn chuyển đến dòng mới mà không đợi notepad tắt
+--> [SỰ KHÁC BIỆT CỦA WINDOWS 11]
+    Như [06], khi notepad được khởi động, nó là tiến trình cha và tạo 1 tiến trình con rồi lập tức kết thúc
+    Muốn đợi notepad, ta sẽ đợi mọi tiến trình con của nó tạo ra kết thúc, thay vì chỉ đợi nó
+
+--- [09] Lỗi liên quan đến Ctrl + C: FIXED
+    Khi shell đang bắt đầu dòng 'tiny_shell>' mà ấn Ctrl + C thì bị thoát
+    Trong shell khởi động foreground chính shell (start_foreground main.exe) và ấn Ctrl + C
+    -> Bị in ra vài lần từ 'tiny_shell>' trước khi trở về shell cha
+--> [CÁCH XỬ LÝ TÍN HIỆU CTRL + C]
+    Xem chi tiết trong main.cpp hiện tại
+
+--- [10] Lỗi tô màu cho syntax: UNSOLVED | REMOVED
+    Tính năng đọc lệnh realtime và chuyển màu nếu gặp phải từ khóa mà shell hỗ trợ
+    Ví dụ: function thì gõ đến function sẽ chuyển vàng
+    -> Làm lỗi nhận tín hiệu Ctrl + C
+    -> Vẫn không giải quyết được, tính năng đã bị loại bỏ
+
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA?]
     [Tab: 4 spaces] Dòng lệnh gây lỗi
