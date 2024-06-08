@@ -1,28 +1,31 @@
-[01] Lỗi xử lý tokens: FIXED
----
-calculate (x + 1) // Tokens: '(x', '+', '1)' -> Phân tích sai
-Buộc phải viết là calculate ( x + 1 ) -> Bất tiện
-Như vậy các dấu ngoặc và toán tử tách thành token riêng
----
+--- [01] Lỗi xử lý tokens: FIXED 
+    calculate (x + 1) // Tokens: '(x', '+', '1)' -> Phân tích sai
+    => Buộc phải viết là calculate ( x + 1 ) -> Bất tiện
+    => Như vậy các dấu ngoặc và toán tử tách thành token riêng
+--> [XỬ LÝ TOKENS KIỂU MỚI]
+--> Token sẽ là dấu phẩy, dấu ngoặc, kí tự liền nhau hoặc là toán tử, hoặc là quote
+--> Ví dụ: function f(x) "x*x" => tokens: ["function", "f", "(", "x", ",", "y", ")", "\"x + y\""]
 
-[02] Lỗi hàm có tham số trùng nhau: FIXED
----
-function h(x, x) "x"
-evaluate h 1 2 // Kết quả in ra: 1
----
+--- [02] Lỗi hàm có tham số trùng nhau: FIXED 
+    function h(x, x) "x"
+    evaluate h 1 2 // Kết quả in ra: 1
+--> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
-[03] Lỗi không tính được giá trị hàm khi biểu thức có biến toàn cục: FIXED
----
-set_env z 2
-function h(x) "x + z"
-evaluate h 1 // Không tính được
----
+--- [03] Lỗi không tính được giá trị hàm khi biểu thức có biến toàn cục: FIXED
+    set_env z 2
+    function h(x) "x + z"
+    evaluate h 1 // Không tính được
+--> [CHO PHÉP LẤY GIÁ TRỊ BIẾN MÔI TRƯỜNG GÁN VÀO]
 
-[04] Lỗi khi truyền giá trị cụ thể
-function f(1) "1+1" 
-//không được định nghĩa như vậy
+--- [04] Lỗi khi truyền giá trị cụ thể
+    function f(1) "1+1" // Không được định nghĩa như vậy
 
-[05] Lỗi khi truyền toán tử
-function f(x+y,z) 
-function f(f(x)) 
-function f(()
+--- [05] Lỗi khi truyền toán tử
+    function f(x+y,z) 
+    function f(f(x)) 
+    function f(())
+
+###### TEMPLATE BUG RECORD ######
+--- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA?]
+    [Tab: 4 spaces] Dòng lệnh gây lỗi
+--> [CÁCH GIẢI QUYẾT]

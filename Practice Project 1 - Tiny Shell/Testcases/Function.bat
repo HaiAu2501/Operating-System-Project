@@ -1,4 +1,4 @@
-function f(x,y,z) "x*y*z"
+function f(x, y, z) "x*y*z"
 set_env a 2
 set_env b 3
 set_env c 4
@@ -12,7 +12,6 @@ evaluate g a
 evaluate g m
 unset_env m 
 evaluate g 5
-
 set_env x 5
 function h(x) "x+x*x"
 evaluate h 3
