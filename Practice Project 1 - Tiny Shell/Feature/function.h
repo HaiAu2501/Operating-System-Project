@@ -46,6 +46,10 @@ public:
                 {
                     throw std::runtime_error("Duplicate parameter: " + args[i]);
                 }
+                if (isInvalidParameter(args[i]))
+                {
+                    throw std::runtime_error("Invalid parameter: " + args[i]);
+                }
                 uniqueParams.insert(args[i]);
                 parameters.push_back(args[i]);
             }
@@ -147,6 +151,11 @@ private:
     bool isParenthesis(const std::string &token)
     {
         return token == "(" || token == ")";
+    }
+
+    bool isInvalidParameter(const std::string &token)
+    {
+        return isNumber(token) || isParenthesis(token) || isOperator(token);
     }
 };
 

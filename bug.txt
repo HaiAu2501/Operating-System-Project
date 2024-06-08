@@ -3,8 +3,8 @@
     => Buộc phải viết là calculate ( x + 1 ) -> Bất tiện
     => Như vậy các dấu ngoặc và toán tử tách thành token riêng
 --> [XỬ LÝ TOKENS KIỂU MỚI]
---> Token sẽ là dấu phẩy, dấu ngoặc, kí tự liền nhau hoặc là toán tử, hoặc là quote
---> Ví dụ: function f(x) "x*x" => tokens: ["function", "f", "(", "x", ",", "y", ")", "\"x + y\""]
+    Token sẽ là dấu phẩy, dấu ngoặc, kí tự liền nhau hoặc là toán tử, hoặc là quote
+    Ví dụ: function f(x) "x*x" => tokens: ["function", "f", "(", "x", ",", "y", ")", "\"x + y\""]
 
 --- [02] Lỗi hàm có tham số trùng nhau: FIXED 
     function h(x, x) "x"
@@ -17,13 +17,15 @@
     evaluate h 1 // Không tính được
 --> [CHO PHÉP LẤY GIÁ TRỊ BIẾN MÔI TRƯỜNG GÁN VÀO]
 
---- [04] Lỗi khi truyền giá trị cụ thể
-    function f(1) "1+1" // Không được định nghĩa như vậy
+--- [04] Lỗi khi truyền giá trị cụ thể: FIXED
+    function f(1) "1 + 1" // Không được định nghĩa như vậy
+--> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
---- [05] Lỗi khi truyền toán tử
+--- [05] Lỗi khi truyền toán tử: FIXED
     function f(x+y,z) 
     function f(f(x)) 
     function f(())
+--> [KHÔNG CHO PHÉP ĐỊNH NGHĨA HÀM NHƯ VẬY]
 
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA?]
