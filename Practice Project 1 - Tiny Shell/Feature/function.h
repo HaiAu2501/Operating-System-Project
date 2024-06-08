@@ -69,15 +69,15 @@ public:
         functions[functionName] = Function(functionName, parameters, expression);
 
         // Hiển thị thông tin chi tiết về hàm đã được định nghĩa
-        std::cout << "Function defined:" << std::endl;
-        std::cout << "Name: " << functionName << std::endl;
-        std::cout << "Parameters (" << parameters.size() << "): ";
+        std::cout << "- Function defined!" << std::endl;
+        std::cout << "- Name: " << functionName << std::endl;
+        std::cout << "- Parameters (" << parameters.size() << "): ";
         for (const auto &param : parameters)
         {
             std::cout << param << " ";
         }
         std::cout << std::endl;
-        std::cout << "Expression: " << expression << std::endl;
+        std::cout << "- Expression: " << expression << std::endl;
     }
 
     double evaluateFunction(const std::vector<std::string> &args, VariableManager &variableManager)
