@@ -6,8 +6,6 @@
 #include <stdexcept>
 #include "variables.h"
 
-void executeCommand(const std::string &command, const std::vector<std::string> &args);
-
 // Hàm này sẽ kiểm tra điều kiện và thực thi các lệnh tương ứng với kết quả của điều kiện
 void handleIfElse(const std::vector<std::string> &args, VariableManager &variableManager)
 {
@@ -24,7 +22,7 @@ void handleIfElse(const std::vector<std::string> &args, VariableManager &variabl
     std::vector<std::string> elseCommand;
 
     size_t i = 1;
-    while (i < args.size() && args[i] != "!" && args[i] != "<" && args[i] != ">" && args[i] != "=")
+    while (i < args.size() && args[i] != "!" && args[i] != "<" && args[i] != ">" && args[i] != "=" && args[i] != "==" && args[i] != "!=" && args[i] != "<=" && args[i] != ">=")
     {
         leftExpression.push_back(args[i]);
         ++i;
@@ -36,23 +34,9 @@ void handleIfElse(const std::vector<std::string> &args, VariableManager &variabl
     }
 
     op = args[i];
-    ++i;
-
-    if (op == "!")
+    if (op == "<" || op == ">")
     {
-        if (i < args.size() && args[i] == "=")
-        {
-            op += "=";
-            ++i;
-        }
-        else
-        {
-            throw std::runtime_error("Syntax error: Expected '=' after '!'");
-        }
-    }
-    else if (op == "<" || op == ">")
-    {
-        if (i < args.size() && args[i] == "=")
+        if (i + 1 < args.size() && args[i + 1] == "=")
         {
             op += "=";
             ++i;
@@ -60,7 +44,7 @@ void handleIfElse(const std::vector<std::string> &args, VariableManager &variabl
     }
     else if (op == "=")
     {
-        if (i < args.size() && args[i] == "=")
+        if (i + 1 < args.size() && args[i + 1] == "=")
         {
             op += "=";
             ++i;
@@ -70,6 +54,8 @@ void handleIfElse(const std::vector<std::string> &args, VariableManager &variabl
             throw std::runtime_error("Syntax error: Expected '=' after '='");
         }
     }
+
+    ++i;
 
     while (i < args.size() && args[i] != ")")
     {

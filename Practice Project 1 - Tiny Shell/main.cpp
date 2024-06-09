@@ -22,6 +22,9 @@ VariableManager variableManager(environmentManager);
 // Tạo đối tượng để quản lý file
 FileManager fileManager;
 
+// Màu hiện tại của console
+ConsoleColor currentColor = ConsoleColor::WHITE;
+
 // Hàm in ra các thông tin ban đầu khi shell khởi động
 void printInitialInfo()
 {
@@ -38,8 +41,6 @@ void printInitialInfo()
     std::cout << "Type 'help' to see the list of available commands." << std::endl;
     std::cout << "========================================" << std::endl;
 }
-
-ConsoleColor currentColor = ConsoleColor::WHITE;
 
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {

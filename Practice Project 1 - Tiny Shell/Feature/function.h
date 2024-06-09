@@ -16,11 +16,11 @@ struct Function
 {
     std::string name;
     std::vector<std::string> parameters;
-    std::string expression;
+    std::vector<std::string> expressionTokens;
 
     Function() {} // Constructor mặc định
-    Function(const std::string &name, const std::vector<std::string> &parameters, const std::string &expression)
-        : name(name), parameters(parameters), expression(expression) {}
+    Function(const std::string &name, const std::vector<std::string> &parameters, const std::vector<std::string> &expressionTokens)
+        : name(name), parameters(parameters), expressionTokens(expressionTokens) {}
 };
 
 class FunctionManager
@@ -28,9 +28,9 @@ class FunctionManager
 public:
     void defineFunction(const std::vector<std::string> &args)
     {
-        if (args.size() < 5) // function name ( param_list ) "expression"
+        if (args.size() < 5) // function name ( param_list ) = expression
         {
-            throw std::runtime_error("Usage: function <name>(<params>) <expression>");
+            throw std::runtime_error("Usage: function <name>(<params>) = <expression>");
         }
 
         std::string functionName = args[0]; // "f"
@@ -61,12 +61,23 @@ public:
             throw std::runtime_error("Invalid parameter list.");
         }
 
-        // Expression should be the last token
-        std::string expression = args.back();                       // "\"x*x\""
-        expression = expression.substr(1, expression.length() - 2); // Remove the quotes
+        ++i; // Move past ')'
+        if (i == args.size() || args[i] != "=")
+        {
+            throw std::runtime_error("Syntax error: Expected '=' after parameter list.");
+        }
+
+        ++i; // Move past '='
+        std::vector<std::string> expressionTokens(args.begin() + i, args.end());
 
         // Định nghĩa hàm
-        functions[functionName] = Function(functionName, parameters, expression);
+        functions[functionName] = Function(functionName, parameters, expressionTokens);
+
+        // Nếu hàm không có tham số, thì thông báo lỗi
+        if (parameters.empty())
+        {
+            throw std::runtime_error("Function " + functionName + " must have at least one parameter.");
+        }
 
         // Hiển thị thông tin chi tiết về hàm đã được định nghĩa
         std::cout << "- Function defined!" << std::endl;
@@ -77,7 +88,12 @@ public:
             std::cout << param << " ";
         }
         std::cout << std::endl;
-        std::cout << "- Expression: " << expression << std::endl;
+        std::cout << "- Expression: ";
+        for (const auto &token : expressionTokens)
+        {
+            std::cout << token << " ";
+        }
+        std::cout << std::endl;
     }
 
     double evaluateFunction(const std::vector<std::string> &args, VariableManager &variableManager)
@@ -101,21 +117,21 @@ public:
             throw std::runtime_error("Incorrect number of arguments for function " + functionName);
         }
 
-        // Thay thế tham số bằng giá trị tương ứng
-        std::string evaluatedExpression = function.expression;
+        // Thay thế tham số bằng giá trị tương ứng trong các token của biểu thức
+        std::vector<std::string> evaluatedTokens = function.expressionTokens;
         for (size_t i = 0; i < functionArgs.size(); ++i)
         {
-            size_t pos = 0;
-            while ((pos = evaluatedExpression.find(function.parameters[i], pos)) != std::string::npos)
+            for (auto &token : evaluatedTokens)
             {
-                evaluatedExpression.replace(pos, function.parameters[i].length(), functionArgs[i]);
-                pos += functionArgs[i].length();
+                if (token == function.parameters[i])
+                {
+                    token = functionArgs[i];
+                }
             }
         }
 
         // Kiểm tra và thay thế các biến không phải là tham số
-        std::vector<std::string> tokens = splitInput(evaluatedExpression);
-        for (auto &token : tokens)
+        for (auto &token : evaluatedTokens)
         {
             if (!isOperator(token) && !isNumber(token) && !isParenthesis(token))
             {
@@ -132,7 +148,7 @@ public:
         }
 
         // Đánh giá biểu thức
-        return variableManager.evaluateExpression(tokens);
+        return variableManager.evaluateExpression(evaluatedTokens);
     }
 
 private:
