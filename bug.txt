@@ -89,7 +89,7 @@
     Cũ: function f(x) "x*x"
     Mới: function f(x) = x*x
 
---- [14] Lỗi khi set biến môi trường: SOLVED: ✅
+--- [14] Lỗi khi set biến môi trường: SOLVED ✅
     set_env x + // -> Không cho set như này
     set_env a 1
     set_env b 2
@@ -101,10 +101,15 @@
     Việc xử lý gán biểu thức cho biến tương đối khó và phải can thiệp vào variables.h
     Chấp nhận đây là một hạn chế của shell, shell không thể giống như ngôn ngữ lập trình đầy đủ
 
---- [15] Lỗi hkhông tạo được Folder: FIXED: ⭐
+--- [15] Lỗi không tạo được Folder: FIXED ⭐
     create "New Folder" // -> Không hoạt động
     delete "New Folder" // -> Không hoạt động
 --> [CHỈNH SỬA CÁCH XỬ LÝ TOKEN LÀ QUOTE]
+
+--- [16] Lỗi không đọc đúng số thập phân: SOLVED ✅
+    calculate 11 / 2 - 5.5 // Variable 5.5 not set
+--> [CHẤP NHẬN TÍNH NĂNG]
+    Shell không thể hoàn thiện được như Python
 
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? UPDATED 📌 | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
