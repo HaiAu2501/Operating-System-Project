@@ -11,7 +11,6 @@
 #include "rename_file.h"
 
 // QUẢN LÝ TIẾN TRÌNH (6)
-#include "start_process.h"
 #include "terminate_process.h"
 #include "list_processes.h"
 #include "process_management.h"

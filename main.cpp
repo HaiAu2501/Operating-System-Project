@@ -112,17 +112,13 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         printWorkingDirectory(args);
     }
-    else if (command == "start")
-    {
-        startProcess(args);
-    }
     else if (command == "start_foreground")
     {
-        handleStartForegroundCommand(args);
+        startProcessForeground(args);
     }
     else if (command == "start_background")
     {
-        handleStartBackgroundCommand(args);
+        startProcessBackground(args);
     }
     else if (command == "terminate")
     {
@@ -136,11 +132,11 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         printAllChildProcesses(args);
     }
-    else if (command == "start_child")
+    else if (command == "child")
     {
         startChildProcess();
     }
-    else if (command == "start_countdown")
+    else if (command == "countdown")
     {
         startCountdownProcess();
     }

@@ -8,6 +8,39 @@
 #include <tlhelp32.h>
 #include <set>
 
+DWORD findChildProcess(DWORD parentPID)
+{
+    HANDLE hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hProcessSnap == INVALID_HANDLE_VALUE)
+    {
+        std::cerr << "Failed to create process snapshot: " << GetLastError() << std::endl;
+        return 0;
+    }
+
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+
+    if (!Process32First(hProcessSnap, &pe32))
+    {
+        std::cerr << "Failed to retrieve process information: " << GetLastError() << std::endl;
+        CloseHandle(hProcessSnap);
+        return 0;
+    }
+
+    DWORD childPID = 0;
+    do
+    {
+        if (pe32.th32ParentProcessID == parentPID)
+        {
+            childPID = pe32.th32ProcessID;
+            break;
+        }
+    } while (Process32Next(hProcessSnap, &pe32));
+
+    CloseHandle(hProcessSnap);
+    return childPID;
+}
+
 // Hàm đợi tất cả tiến trình con của một tiến trình cha kết thúc
 void waitForChildProcesses(DWORD parentPID)
 {
@@ -94,7 +127,7 @@ void startProcessBackground(const std::vector<std::string> &args)
 {
     if (args.size() < 1)
     {
-        std::cerr << "Usage: start_background <command>" << std::endl;
+        std::cout << "Usage: start <executable_path> [arguments...]" << std::endl;
         return;
     }
 
@@ -106,33 +139,37 @@ void startProcessBackground(const std::vector<std::string> &args)
 
     STARTUPINFOA si = {sizeof(si)};
     PROCESS_INFORMATION pi;
+    ZeroMemory(&pi, sizeof(pi));
+
     char *cmd = new char[command.length() + 1];
     strcpy(cmd, command.c_str());
 
-    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
+    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE, CREATE_NEW_PROCESS_GROUP, NULL, NULL, &si, &pi))
     {
         std::cerr << "Failed to start process: " << GetLastError() << std::endl;
         delete[] cmd; // Giải phóng bộ nhớ
         return;
     }
+    std::cout << "Started process with PID: " << pi.dwProcessId << std::endl;
 
-    std::cout << "Started process in background with PID: " << pi.dwProcessId << std::endl;
+    // Wait a bit and check for child processes
+    Sleep(1000);
+    DWORD childPID = findChildProcess(pi.dwProcessId);
+    if (childPID != 0)
+    {
+        std::cout << "Detected child process with PID: " << childPID << std::endl;
+    }
+    else
+    {
+        std::cout << "No child process detected for PID: " << pi.dwProcessId << std::endl;
+    }
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
     delete[] cmd; // Giải phóng bộ nhớ
 }
 
-void handleStartForegroundCommand(const std::vector<std::string> &args)
-{
-    startProcessForeground(args);
-}
-
-void handleStartBackgroundCommand(const std::vector<std::string> &args)
-{
-    startProcessBackground(args);
-}
-
+// Nhóm Forground | Nhóm này không nên chạy Background
 void startTicTacToe()
 {
     std::vector<std::string> args = {"Process/tictactoe.exe"};
@@ -143,6 +180,19 @@ void startDuck()
 {
     std::vector<std::string> args = {"Process/duck.exe"};
     startProcessForeground(args);
+}
+
+// Nhóm Background | Nhóm này vẫn có thể chạy Foreground
+void startCountdownProcess()
+{
+    std::vector<std::string> args = {"Process/countdown.exe"};
+    startProcessBackground(args);
+}
+
+void startChildProcess()
+{
+    std::vector<std::string> args = {"Process/child.exe"};
+    startProcessBackground(args);
 }
 
 #endif // PROCESS_MANAGEMENT_H

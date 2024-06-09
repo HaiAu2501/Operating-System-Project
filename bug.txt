@@ -115,6 +115,11 @@
 --> [CHẤP NHẬN TÍNH NĂNG]
     Shell không thể hoàn thiện được như Python
 
+--- [17] Lỗi Ctrl + C làm dừng tiến trình countdown chạy background: SOLVED: ✅ | FIXED: ⭐
+--> [CHỈNH SỬA CÁCH NHẬN TÍN HIỆU]
+    Do countdown.exe chia sẻ cùng console với tiến trình cha nên nó cũng chịu ảnh hưởng từ tiến trình cha
+    Dùng tham số 'CREATE_NEW_PROCESS_GROUP' để tiến trình con tạo ra trong 1 nhóm tiến trình mới
+
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? UPDATED 📌 | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
 
