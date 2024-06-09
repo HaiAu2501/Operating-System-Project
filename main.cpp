@@ -255,56 +255,6 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             handleIfElse(args, variableManager);
         }
     }
-    // else if (command == "function")
-    // {
-    //     std::string functionDefinition = "function ";
-    //     for (const std::string &arg : args)
-    //     {
-    //         functionDefinition += arg + " ";
-    //     }
-    //     try
-    //     {
-    //         functionManager.handleFunctionDefinition(functionDefinition);
-    //     }
-    //     catch (const std::exception &e)
-    //     {
-    //         std::cout << "Error: " << e.what() << std::endl;
-    //     }
-    // }
-    // else if (command == "evaluate")
-    // {
-    //     if (args.size() >= 2)
-    //     {
-    //         std::string functionName = args[0];
-    //         std::vector<double> funcArgs;
-    //         for (size_t i = 1; i < args.size(); ++i)
-    //         {
-    //             funcArgs.push_back(std::stod(args[i]));
-    //         }
-    //         try
-    //         {
-    //             double result = functionManager.evaluateFunction(functionName, funcArgs);
-    //             std::cout << result << std::endl;
-    //         }
-    //         catch (const std::exception &e)
-    //         {
-    //             std::cout << "Error: " << e.what() << std::endl;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         std::cout << "Usage: evaluate <function_name> <arg1> <arg2> ..." << std::endl;
-    //     }
-    // }
-    // else if (command == "if")
-    // {
-    //     std::string conditionArgs;
-    //     for (const std::string &arg : args)
-    //     {
-    //         conditionArgs += arg + " ";
-    //     }
-    //     executeConditional(conditionArgs, variableManager);
-    // }
     else if (command == "suspend")
     {
         suspendProc(args);
@@ -462,7 +412,11 @@ std::vector<std::string> splitInput(const std::string &input)
         if (ch == '\"')
         {
             inQuotes = !inQuotes;
-            token += ch;
+            if (!inQuotes) // End of quoted string
+            {
+                tokens.push_back(token);
+                token.clear();
+            }
         }
         else if (isspace(ch) && !inQuotes)
         {

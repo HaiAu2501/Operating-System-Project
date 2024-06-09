@@ -94,15 +94,18 @@
     set_env a 1
     set_env b 2
     set_env c a + b 
-    print_env c // c = 1 -> cần ra c = 3
+    print_env c // c = 1 -> Cần ra c = 3
     set_env m m // Chạy bình thường -> Cần sửa lại
     print_env m // m = m 
 --> [CHẤP NHẬN TÍNH NĂNG]
     Việc xử lý gán biểu thức cho biến tương đối khó và phải can thiệp vào variables.h
     Chấp nhận đây là một hạn chế của shell, shell không thể giống như ngôn ngữ lập trình đầy đủ
---- [15] Lỗi hkhông tạo được Folder : UPDATED 📌
-    create "New Folder"
---> 
+
+--- [15] Lỗi hkhông tạo được Folder: FIXED: ⭐
+    create "New Folder" // -> Không hoạt động
+    delete "New Folder" // -> Không hoạt động
+--> [CHỈNH SỬA CÁCH XỬ LÝ TOKEN LÀ QUOTE]
+
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? UPDATED 📌 | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
 
