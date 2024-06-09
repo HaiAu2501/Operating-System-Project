@@ -69,9 +69,9 @@ g++ -o -std=c++17 main main.cpp
   - `countdown.cpp`: Chương trình đếm ngược.
   - `duck.cpp`: Chương trình vẽ hình con vịt.
   - `tictactoe.cpp`: Chương trình chơi cờ caro.
-- **Testcases:** Thư mục chứa các kịch bản kiểm thử cho Tiny Shell nhằm đảm bảo tính ổn định và đúng đắn của chương trình.
+- **Testcase:** Thư mục chứa các kịch bản kiểm thử cho Tiny Shell nhằm đảm bảo tính ổn định và đúng đắn của chương trình.
   - Mỗi *kịch bản* là dãy lệnh được lưu thành một file `.bat`.
   - Dãy lệnh sẽ có độ khó nhất định và là một quy trình hoàn toàn khép kín.
   - Tên file sẽ phản ánh nội dung tính năng kiểm thử của kịch bản.
-  - Tiny Shell chạy kịch bản kiểm thử bằng cách nhập lệnh `run Testcases\<tên file>` từ bàn phím.
-  - Hoặc đơn giản hơn là `add_path Testcases\` rồi nhập `run <tên file>` để chạy kịch bản kiểm thử.
+  - Tiny Shell chạy kịch bản kiểm thử bằng cách nhập lệnh `run Testcase\<tên file>` từ bàn phím.
+  - Hoặc đơn giản hơn là `add_path Testcase\` rồi nhập `run <tên file>` để chạy kịch bản kiểm thử.
