@@ -1,7 +1,7 @@
 # Bài tập lớn Nguyên lý Hệ điều hành
 
 <div align="center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=EE4E4E&center=true&vCenter=true&random=false&width=435&lines=Operating+System+Projects" alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=2000&pause=500&color=EE4E4E&background=FFFFFF00&center=true&vCenter=true&repeat=false&random=false&width=435&lines=Operating+System+Project;Tiny+Shell" alt="Typing SVG" /></a>
 </div>
 
 <div align="center">
