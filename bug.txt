@@ -85,6 +85,8 @@
     set_env b 2
     set_env c a + b 
     print_env c // c = 1 -> cần ra c = 3
+    set_env m m // Chạy bình thường -> Cần sửa lại
+    print_env m // m = m 
 --> [KIỂM TRA GIÁ TRỊ GÁN]
 
 ###### TEMPLATE BUG RECORD ######
