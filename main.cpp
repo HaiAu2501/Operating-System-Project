@@ -309,13 +309,53 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "set_env")
     {
-        if (args.size() >= 2)
+        // // Nếu có đúng 2 tham số thì thiết lập biến môi trường
+        // if (args.size() == 2)
+        // {
+        //     environmentManager.setEnv(args[0], args[1]);
+        // }
+        // // Nếu có nhiều hơn 2 tham số thì phần tử thứ 2 trở đi sẽ là biểu thức cần tính toán
+        // else if (args.size() > 2)
+        // {
+        //     std::vector<std::string> expression(args.begin() + 1, args.end());
+        //     try
+        //     {
+        //         int result = variableManager.evaluateExpression(expression);
+        //         environmentManager.setEnv(args[0], std::to_string(result));
+        //     }
+        //     catch (const std::exception &e)
+        //     {
+        //         std::cout << "Error: " << e.what() << std::endl;
+        //     }
+        // } // Nếu không có tham số nào thì thông báo lỗi
+        // else
+        // {
+        //     std::cout << "Usage: set_env <variable> <value> or set_env <variable> <expression>" << std::endl;
+        // }
+
+        // Nếu có đúng 3 tham số và tham số thứ 2 là dấu bằng (=) thì thiết lập biến môi trường
+        if (args.size() == 3 && args[1] == "=")
         {
-            environmentManager.setEnv(args[0], args[1]);
+            environmentManager.setEnv(args[0], args[2]);
         }
+        // Nếu có nhiều hơn 3 tham số thì phần tử thứ 2 trở đi sẽ là biểu thức cần tính toán
+        else if (args.size() > 3)
+        {
+            std::vector<std::string> expression(args.begin() + 2, args.end());
+            try
+            {
+                int result = variableManager.evaluateExpression(expression);
+                environmentManager.setEnv(args[0], std::to_string(result));
+            }
+            catch (const std::exception &e)
+            {
+                std::cout << "Error: " << e.what() << std::endl;
+            }
+        }
+        // Nếu không có tham số nào thì thông báo lỗi
         else
         {
-            std::cout << "Usage: set_env <variable> <value>" << std::endl;
+            std::cout << "Usage: set_env <variable> = <value> or set_env <variable> = <expression>" << std::endl;
         }
     }
     else if (command == "unset_env")

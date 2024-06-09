@@ -89,7 +89,7 @@
     Cũ: function f(x) "x*x"
     Mới: function f(x) = x*x
 
---- [14] Lỗi khi set biến môi trường: SOLVED ✅
+--- [14] Lỗi khi set biến môi trường: SOLVED ✅ | FIXED: ⭐
     set_env x + // -> Không cho set như này
     set_env a 1
     set_env b 2
@@ -100,6 +100,10 @@
 --> [CHẤP NHẬN TÍNH NĂNG]
     Việc xử lý gán biểu thức cho biến tương đối khó và phải can thiệp vào variables.h
     Chấp nhận đây là một hạn chế của shell, shell không thể giống như ngôn ngữ lập trình đầy đủ
+
+>>> (04) Cho phép gán biến môi trường bằng biểu thức: UPDATED 📌
+    Cũ: <var> <value>
+    Mới: <var> = <value> hoặc <var> = <expression>
 
 --- [15] Lỗi không tạo được Folder: FIXED ⭐
     create "New Folder" // -> Không hoạt động
