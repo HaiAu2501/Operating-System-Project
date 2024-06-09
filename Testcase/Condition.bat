@@ -1,12 +1,12 @@
-set_env TRUE 1
+set_env TRUE = 1
 print_env TRUE
-set_env FALSE 0
+set_env FALSE = 0
 print_env FALSE
-set_env x 1
+set_env x = 1
 print_env x
-set_env y 2
+set_env y = 2
 print_env y
-set_env z 3
+set_env z = 3
 print_env z
 if (x + y == z): print_env TRUE else print_env FALSE
 if (x + y == 3): print_env TRUE else print_env FALSE

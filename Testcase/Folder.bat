@@ -1,0 +1,6 @@
+create "New Folder"
+create "New Folder\Folder 1"
+create "Folder 2"
+copy "New Folder\Folder 1" "New Folder\Folder 3"
+move "Folder 2" "New Folder\Folder 2"
+delete "New Folder"

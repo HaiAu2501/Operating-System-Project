@@ -405,17 +405,24 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "write_file")
     {
-        fileManager.writeFile(args);
+        try
+        {
+            fileManager.writeFile(args);
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
     }
     else if (command == "read_file")
     {
-        if (!args.empty())
+        try
         {
-            fileManager.readFile(args[0]);
+            fileManager.readFile(args);
         }
-        else
+        catch (const std::exception &e)
         {
-            std::cout << "Usage: read_file <file_name>" << std::endl;
+            std::cout << "Error: " << e.what() << std::endl;
         }
     }
     else if (command == "file_size")
