@@ -79,7 +79,7 @@
     if (1 + 1 + 1 == 3): help else dir // -> Gặp lỗi
 --> [CÁCH XỬ LÝ TOÁN TỬ SO SÁNH TRONG LỆNH ĐIỀU KIỆN]
 
---- [14] Lỗi khi set biến môi trường
+--- [14] Lỗi khi set biến môi trường: SOLVED: ✅
     set_env x + // -> Không cho set như này
     set_env a 1
     set_env b 2
@@ -87,7 +87,9 @@
     print_env c // c = 1 -> cần ra c = 3
     set_env m m // Chạy bình thường -> Cần sửa lại
     print_env m // m = m 
---> [KIỂM TRA GIÁ TRỊ GÁN]
+--> [CHẤP NHẬN TÍNH NĂNG]
+    Việc xử lý gán biểu thức cho biến tương đối khó và phải can thiệp vào variables.h
+    Chấp nhận đây là một hạn chế của shell, shell không thể giống như ngôn ngữ lập trình đầy đủ
 
 ###### TEMPLATE BUG RECORD ######
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
