@@ -255,6 +255,17 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             handleIfElse(args, variableManager);
         }
     }
+    else if (command == "loop")
+    {
+        if (args.size() < 1)
+        {
+            std::cout << "Usage: loop <number_of_iterations> <command1> & <command2> & ..." << std::endl;
+        }
+        else
+        {
+            handleLoop(args);
+        }
+    }
     else if (command == "suspend")
     {
         suspendProc(args);
