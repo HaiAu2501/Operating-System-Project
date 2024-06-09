@@ -42,6 +42,7 @@ void printInitialInfo()
     std::cout << "========================================" << std::endl;
 }
 
+// Hàm thực thi lệnh
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
     if (command == "change_color")
