@@ -137,8 +137,8 @@ public:
 
         if (args.size() == 1)
         {
-            // Mặc định đọc toàn bộ file
-            printLines(lines, 0, lines.size());
+            // Mặc định đọc toàn bộ file, 5 dòng một lần và hỏi người dùng ấn Enter để tiếp tục hoặc Ctrl+C để thoát
+            printLinesWithPause(lines, 0, lines.size());
         }
         else
         {
@@ -242,6 +242,33 @@ private:
         for (size_t i = start; i < end; ++i)
         {
             std::cout << lines[i] << std::endl;
+        }
+        std::cout << "End of reading. Returning to shell..." << std::endl;
+    }
+
+    // Hàm để in các dòng từ start đến end-1 với tạm dừng
+    void printLinesWithPause(const std::vector<std::string> &lines, size_t start, size_t end)
+    {
+        for (size_t i = start; i < end; ++i)
+        {
+            std::cout << lines[i] << std::endl;
+            if (interrupted)
+            {
+                std::cout << "\nReading interrupted. Returning to shell..." << std::endl;
+                interrupted = false; // Reset flag
+                return;
+            }
+
+            if ((i + 1) % 5 == 0 && i + 1 < end)
+            {
+                std::cout << "[READ MORE] (Press any key to continue, Ctrl+C to quit)..." << std::endl;
+                char ch = _getch();
+                if (ch == 3)
+                { // Ctrl+C
+                    std::cout << "\nReading interrupted. Returning to shell..." << std::endl;
+                    return;
+                }
+            }
         }
         std::cout << "End of reading. Returning to shell..." << std::endl;
     }
