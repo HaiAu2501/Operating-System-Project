@@ -7,34 +7,16 @@
 #include <thread>
 #include "Feature/features.h"
 
-// Tạo đối tượng lưu trữ lịch sử các câu lệnh
 CommandHistory commandHistory;
-
-// Tạo đối tượng để quản lý hàm
 FunctionManager functionManager;
-
-// Tạo đối tượng quản lý biến môi trường
 EnvironmentManager environmentManager;
-
-// Tạo đối tượng quản lý biến
 VariableManager variableManager(environmentManager);
-
-// Tạo đối tượng để quản lý file
 FileManager fileManager;
-
-// Tạo đối tượng để quản lý tiến trình
 ProcessManager processManager;
-
-// Tạo đối tượng quản lý thư mục
 DirectoryManager directoryManager;
-
-// Tạo đối tượng tiện ích
 SystemUtils systemUtils;
-
-// Tạo đối tượng để quản lý alias
 AliasManager aliasManager;
-
-// Màu hiện tại của console
+BookmarkManager bookmarkManager;
 ConsoleColor currentColor = ConsoleColor::WHITE;
 
 // Hàm in ra các thông tin ban đầu khi shell khởi động
@@ -451,6 +433,33 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     else if (command == "convert")
     {
         handleBaseConversion(args);
+    }
+    else if (command == "bookmark")
+    {
+        if (args.size() == 3 && args[0] == "add")
+        {
+            bookmarkManager.addBookmark(args[1], args[2]);
+        }
+        else if (args.size() == 2 && args[0] == "remove")
+        {
+            bookmarkManager.removeBookmark(args[1]);
+        }
+        else if (args.size() == 1 && args[0] == "list")
+        {
+            bookmarkManager.listBookmarks();
+        }
+        else if (args.size() == 2 && args[0] == "go")
+        {
+            bookmarkManager.goBookmark(args[1]);
+        }
+        else if (args.size() == 1 && args[0] == "home")
+        {
+            bookmarkManager.goHomeDirectory();
+        }
+        else
+        {
+            std::cerr << "Usage: bookmark [add <name> <path> | remove <name> | list | go <name> | home]" << std::endl;
+        }
     }
     else if (command == "alias")
     {
