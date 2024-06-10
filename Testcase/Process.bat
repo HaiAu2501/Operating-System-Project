@@ -1,4 +1,4 @@
-add_path Proccess\
+add_path Process\
 is_in_path Process\
 start_foreground countdown.exe
 start_foreground child_process.exe
