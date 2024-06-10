@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-void exitShell() {
+void exitShell()
+{
     std::cout << "Exiting Tiny Shell." << std::endl;
     exit(0);
 }

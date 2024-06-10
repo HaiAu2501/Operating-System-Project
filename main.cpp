@@ -22,6 +22,18 @@ VariableManager variableManager(environmentManager);
 // Tạo đối tượng để quản lý file
 FileManager fileManager;
 
+// Tạo đối tượng để quản lý tiến trình
+ProcessManager processManager;
+
+// Tạo đối tượng quản lý thư mục
+DirectoryManager directoryManager;
+
+// Tạo đối tượng tiện ích
+SystemUtils systemUtils;
+
+// Tạo đối tượng để quản lý alias
+AliasManager aliasManager;
+
 // Màu hiện tại của console
 ConsoleColor currentColor = ConsoleColor::WHITE;
 
@@ -61,15 +73,15 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     if (command == "delete")
     {
-        deleteDirectory(args);
+        directoryManager.deleteDirectory(args);
     }
     else if (command == "move")
     {
-        moveDirectory(args);
+        directoryManager.moveDirectory(args);
     }
     else if (command == "open")
     {
-        openFile(args);
+        fileManager.openFile(args);
     }
     else if (command == "exit")
     {
@@ -78,15 +90,15 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "list_tree")
     {
-        listDirectoryTree(args);
+        directoryManager.listDirectoryTree(args);
     }
     else if (command == "create")
     {
-        createDirectory(args);
+        directoryManager.createDirectory(args);
     }
     else if (command == "copy")
     {
-        copyDirectory(args);
+        directoryManager.copyDirectory(args);
     }
     else if (command == "run")
     {
@@ -98,7 +110,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "rename")
     {
-        renameFile(args);
+        fileManager.renameFile(args);
     }
     else if (command == "cd")
     {
@@ -114,31 +126,31 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "start_foreground")
     {
-        startProcessForeground(args);
+        processManager.startProcessForeground(args);
     }
     else if (command == "start_background")
     {
-        startProcessBackground(args);
+        processManager.startProcessBackground(args);
     }
     else if (command == "terminate")
     {
-        terminateProcess(args);
+        processManager.terminateProcess(args);
     }
     else if (command == "list_processes")
     {
-        listProcesses(args);
+        processManager.listProcesses(args);
     }
     else if (command == "list_children")
     {
-        printAllChildProcesses(args);
+        processManager.printAllChildProcesses(args);
     }
     else if (command == "child")
     {
-        startChildProcess();
+        processManager.startChildProcess();
     }
     else if (command == "countdown")
     {
-        startCountdownProcess();
+        processManager.startCountdownProcess();
     }
     else if (command == "manage_threads")
     {
@@ -146,31 +158,31 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "time")
     {
-        showSystemTime(args);
+        systemUtils.showSystemTime(args);
     }
     else if (command == "date")
     {
-        showSystemDate(args);
+        systemUtils.showSystemDate(args);
     }
     else if (command == "uptime")
     {
-        showSystemUptime(args);
+        systemUtils.showSystemUptime(args);
     }
     else if (command == "cpuinfo")
     {
-        showCPUInfo(args);
+        systemUtils.showCPUInfo(args);
     }
     else if (command == "meminfo")
     {
-        showMemoryInfo(args);
+        systemUtils.showMemoryInfo(args);
     }
     else if (command == "diskinfo")
     {
-        showDiskInfo(args);
+        systemUtils.showDiskInfo(args);
     }
     else if (command == "calculator")
     {
-        showCalculator(args);
+        systemUtils.showCalculator(args);
     }
     else if (command == "history")
     {
@@ -209,13 +221,13 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         dancing();
     }
-    else if (command == "playing")
+    else if (command == "tictactoe")
     {
-        startTicTacToe();
+        processManager.startTicTacToe();
     }
     else if (command == "duck")
     {
-        startDuck();
+        processManager.startDuck();
     }
     else if (command == "function")
     {
@@ -264,11 +276,11 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     }
     else if (command == "suspend")
     {
-        suspendProc(args);
+        processManager.suspendProc(args);
     }
     else if (command == "resume")
     {
-        resumeProc(args);
+        processManager.resumeProc(args);
     }
     else if (command == "add_path")
     {
@@ -440,6 +452,32 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         handleBaseConversion(args);
     }
+    else if (command == "alias")
+    {
+        if (args.empty())
+        {
+            aliasManager.listAliases();
+        }
+        else if (args.size() == 3)
+        {
+            aliasManager.addAlias(args[0], args[2]);
+        }
+        else
+        {
+            std::cerr << "Usage: alias <name> = <command> or alias" << std::endl;
+        }
+    }
+    else if (command == "unalias")
+    {
+        if (!args.empty())
+        {
+            aliasManager.removeAlias(args[0]);
+        }
+        else
+        {
+            std::cerr << "Usage: unalias <name>" << std::endl;
+        }
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
@@ -502,6 +540,12 @@ std::vector<std::string> splitInput(const std::string &input)
     if (!token.empty())
     {
         tokens.push_back(token);
+    }
+
+    // Nếu tokens không rỗng thì giải quyết alias
+    if (!tokens.empty())
+    {
+        tokens[0] = aliasManager.resolveAlias(tokens[0]);
     }
 
     return tokens;

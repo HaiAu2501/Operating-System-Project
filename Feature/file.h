@@ -3,10 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include <iostream>
 #include <fstream>
 #include <csignal>
 #include <conio.h>
+#include <windows.h>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -18,6 +20,13 @@ public:
     {
         // Đăng ký xử lý tín hiệu SIGINT (Ctrl+C)
         signal(SIGINT, signalHandler);
+    }
+
+    static const std::unordered_set<std::string> supportedCommands;
+
+    static const std::unordered_set<std::string> &getSupportedCommands()
+    {
+        return supportedCommands;
     }
 
     // Hàm để ghi nội dung vào file
@@ -227,6 +236,37 @@ public:
         }
     }
 
+    // Hàm để mở file
+    void openFile(const std::vector<std::string> &args)
+    {
+        if (args.size() != 1)
+        {
+            std::cout << "Usage: open <file_path>" << std::endl;
+            return;
+        }
+        std::string filePath = args[0];
+        ShellExecuteA(NULL, "open", filePath.c_str(), NULL, NULL, SW_SHOW);
+    }
+
+    // Hàm để đổi tên file
+    void renameFile(const std::vector<std::string> &args)
+    {
+        if (args.size() != 2)
+        {
+            std::cout << "Usage: rename <old_file_path> <new_file_path>" << std::endl;
+            return;
+        }
+        fs::path oldPath = args[0];
+        fs::path newPath = args[1];
+        if (!fs::exists(oldPath))
+        {
+            std::cout << "File does not exist: " << oldPath << std::endl;
+            return;
+        }
+        fs::rename(oldPath, newPath);
+        std::cout << "File renamed from " << oldPath << " to " << newPath << std::endl;
+    }
+
 private:
     static bool interrupted;
 
@@ -276,5 +316,13 @@ private:
 
 // Khởi tạo biến tĩnh
 bool FileManager::interrupted = false;
+
+// Khởi tạo danh sách các câu lệnh mà đối tượng này hỗ trợ
+const std::unordered_set<std::string> FileManager::supportedCommands = {
+    "write_file",
+    "read_file",
+    "file_size",
+    "open",
+    "rename"};
 
 #endif // FILE_H

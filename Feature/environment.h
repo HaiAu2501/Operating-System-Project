@@ -7,10 +7,20 @@
 #include <cstdlib>
 #include <windows.h>
 #include <fstream>
+#include <unordered_set>
 
 class EnvironmentManager
 {
 public:
+    // Các lệnh hỗ trợ
+    static const std::unordered_set<std::string> supportedCommands;
+
+    // Hàm lấy danh sách các lệnh hỗ trợ
+    static const std::unordered_set<std::string> &getSupportedCommands()
+    {
+        return supportedCommands;
+    }
+
     // Hàm để thêm đường dẫn vào biến môi trường PATH
     void addToPath(const std::string &path)
     {
@@ -162,5 +172,16 @@ public:
         return "";
     }
 };
+
+const std::unordered_set<std::string> EnvironmentManager::supportedCommands = {
+    "add_path",
+    "remove_path",
+    "print_env",
+    "set_env",
+    "unset_env",
+    "is_in_path",
+    "list_env",
+    "save_env",
+    "load_env"};
 
 #endif // ENVIRONMENT_H

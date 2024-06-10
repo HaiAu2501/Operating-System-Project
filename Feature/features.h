@@ -1,33 +1,26 @@
 #ifndef FEATURES_H
 #define FEATURES_H
 
-// QUẢN LÝ TỆP VÀ THƯ MỤC (7)
-#include "delete_directory.h"
-#include "move_directory.h"
-#include "list_directory_tree.h"
-#include "create_directory.h"
-#include "copy_directory.h"
-#include "open_file.h"
-#include "rename_file.h"
+// QUẢN LÝ TỆP VÀ THƯ MỤC (9)
+#include "directory.h" // 4 lệnh
+#include "file.h"      // 5 lệnh
 
-// QUẢN LÝ TIẾN TRÌNH (6)
-#include "terminate_process.h"
-#include "list_processes.h"
-#include "process_management.h"
-#include "find_child_processes.h"
+// QUẢN LÝ TIẾN TRÌNH (11)
+#include "process.h" // 11 lệnh
 #include "manage_threads.h"
-#include "suspend_and_resume.h"
 
-// HỆ THỐNG VÀ TIỆN ÍCH (9)
-#include "run_script.h"
-#include "show_calculator.h"
-#include "system_utils.h"
-#include "variables.h"   // Mới cập nhật, cần kiểm tra
-#include "dancing.h"     // Mới cập nhật, cần kiểm tra
-#include "function.h"    // Mới cập nhật, cần kiểm tra
-#include "conditional.h" // Mới cập nhật, cần kiểm tra
-#include "set_color.h"   // Mới cập nhật, cần kiểm tra
-#include "environment.h" // Mới cập nhật, cần kiểm tra
+// HỆ THỐNG VÀ TIỆN ÍCH (8)
+#include "run_script.h"   // 1 lệnh
+#include "system_utils.h" // 7 lệnh
+
+// TÍNH TOÁN NÂNG CAO (16)
+#include "variables.h"   // 0 lệnh
+#include "dancing.h"     // 0 lệnh
+#include "function.h"    // 2 lệnh
+#include "conditional.h" // 1 lệnh
+#include "set_color.h"   // 1 lệnh
+#include "environment.h" // 9 lệnh
+#include "alias.h"       // 3 lệnh
 
 // ĐIỀU HƯỚNG VÀ GIAO DIỆN (5)
 #include "navigation.h"
@@ -37,7 +30,6 @@
 #include "clear_screen.h" // Mới cập nhật, cần kiểm tra
 
 // TÍNH TOÁN VÀ KIỂM TRA (2)
-#include "file.h"            // Mới cập nhật, cần kiểm tra
 #include "loop.h"            // Mới cập nhật, cần kiểm tra
 #include "base_conversion.h" // Mới cập nhật, cần kiểm tra
 
