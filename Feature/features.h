@@ -37,7 +37,8 @@
 #include "clear_screen.h" // Mới cập nhật, cần kiểm tra
 
 // TÍNH TOÁN VÀ KIỂM TRA (2)
-#include "file.h" // Mới cập nhật, cần kiểm tra
-#include "loop.h" // Mới cập nhật, cần kiểm tra
+#include "file.h"            // Mới cập nhật, cần kiểm tra
+#include "loop.h"            // Mới cập nhật, cần kiểm tra
+#include "base_conversion.h" // Mới cập nhật, cần kiểm tra
 
 #endif // FEATURES_H

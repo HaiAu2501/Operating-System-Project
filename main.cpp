@@ -436,6 +436,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cout << "Usage: file_size <file_name>" << std::endl;
         }
     }
+    else if (command == "convert")
+    {
+        handleBaseConversion(args);
+    }
     else
     {
         std::cout << "Unknown command: " << command << std::endl;
