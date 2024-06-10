@@ -36,7 +36,7 @@ void printInitialInfo()
     std::cout << "========================================" << std::endl;
 }
 
-// Hàm thực thi lệnh
+// Hàm thực thi lệnh -> Có tất cả 58 lệnh
 void executeCommand(const std::string &command, const std::vector<std::string> &args)
 {
     if (command == "change_color")
