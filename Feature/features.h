@@ -21,6 +21,7 @@
 #include "set_color.h"   // 1 lệnh
 #include "environment.h" // 9 lệnh
 #include "alias.h"       // 3 lệnh
+#include "bookmark.h"    // 4 lệnh
 
 // ĐIỀU HƯỚNG VÀ GIAO DIỆN (5)
 #include "navigation.h"

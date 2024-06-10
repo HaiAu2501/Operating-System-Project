@@ -23,13 +23,12 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "copy" << ": Copy a directory" << std::endl;
     std::cout << std::setw(20) << "open" << ": Open a file" << std::endl;
     std::cout << std::setw(20) << "rename" << ": Rename a file" << std::endl;
-    std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
-    std::cout << std::setw(20) << "start" << ": Start a process" << std::endl;
+    std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;   
     std::cout << std::setw(20) << "start_foreground" << ": Start a process in foreground" << std::endl;
     std::cout << std::setw(20) << "start_background" << ": Start a process in background" << std::endl;
     std::cout << std::setw(20) << "terminate" << ": Terminate a process" << std::endl;
     std::cout << std::setw(20) << "list_processes" << ": List running processes" << std::endl;
-    std::cout << std::setw(20) << "start_child" << ": Start a child process" << std::endl;
+    std::cout << std::setw(20) << "child" << ": Start a child process" << std::endl;
     std::cout << std::setw(20) << "manage_threads" << ": Manage threads" << std::endl;
     std::cout << std::setw(20) << "list_children" << ": Print all children processes" << std::endl;
     std::cout << std::setw(20) << "suspend" << ": Suspend a process" << std::endl;
@@ -49,6 +48,8 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "function" << ": Define a function" << std::endl;
     std::cout << std::setw(20) << "evaluate" << ": Evaluate a function" << std::endl;
     std::cout << std::setw(20) << "if else" << ": Conditional execution" << std::endl;
+    std::cout << std::setw(20) << "loop" << ": Loop expression" << std::endl;
+    std::cout << std::setw(20) << "convert" << ": Number base convertion" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "add_path" << ": Add a path to PATH" << std::endl;
     std::cout << std::setw(20) << "remove_path" << ": Remove a path from PATH" << std::endl;
