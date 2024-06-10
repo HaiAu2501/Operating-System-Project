@@ -3,4 +3,3 @@ date
 uptime
 cpuinfo
 meminfo
-diskinfo
