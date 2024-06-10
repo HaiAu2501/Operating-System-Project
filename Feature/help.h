@@ -48,6 +48,7 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "function" << ": Define a function" << std::endl;
     std::cout << std::setw(20) << "evaluate" << ": Evaluate a function" << std::endl;
     std::cout << std::setw(20) << "if else" << ": Conditional execution" << std::endl;
+    std::cout << std::setw(20) << "loop" << ": Loop expression" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "add_path" << ": Add a path to PATH" << std::endl;
     std::cout << std::setw(20) << "remove_path" << ": Remove a path from PATH" << std::endl;
