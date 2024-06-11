@@ -9,20 +9,26 @@
 class AliasManager
 {
 public:
+    AliasManager()
+    {
+        validCommands = {
+            "delete"};
+    }
+
     // Hàm để thêm alias
     void addAlias(const std::string &name, const std::string &command)
     {
-        // if (validCommands.find(command) == validCommands.end())
-        // {
-        //     std::cerr << "Error: Command '" << command << "' is not supported." << std::endl;
-        //     return;
-        // }
+        if (validCommands.find(command) == validCommands.end())
+        {
+            std::cerr << "Error: Command '" << command << "' is not supported." << std::endl;
+            return;
+        }
 
-        // if (validCommands.find(name) != validCommands.end())
-        // {
-        //     std::cerr << "Error: Alias name '" << name << "' conflicts with an existing command." << std::endl;
-        //     return;
-        // }
+        if (validCommands.find(name) != validCommands.end())
+        {
+            std::cerr << "Error: Alias name '" << name << "' conflicts with an existing command." << std::endl;
+            return;
+        }
 
         aliases[name] = command;
         std::cout << "Alias added: " << name << " -> " << command << std::endl;
@@ -63,7 +69,7 @@ public:
 
 private:
     std::unordered_map<std::string, std::string> aliases;
-    // std::unordered_set<std::string> validCommands;
+    std::unordered_set<std::string> validCommands;
 };
 
 #endif // ALIAS_H
