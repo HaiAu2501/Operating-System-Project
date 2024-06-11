@@ -12,7 +12,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
 
 void scheduleCommand(const std::vector<std::string> &args)
 {
-    if (args.size() > 3 || args[1] != "s")
+    if (args.size() < 4 || args[1] != "s")
     {
         std::cerr << "Usage: after <number> s <command>" << std::endl;
         return;
@@ -35,6 +35,7 @@ void scheduleCommand(const std::vector<std::string> &args)
     std::thread([=]()
                 {
             std::this_thread::sleep_for(std::chrono::seconds(delay));
+            std::cout << "The thread is completed!" << std::endl;
             executeCommand(command, commandArgs); })
         .detach();
 
