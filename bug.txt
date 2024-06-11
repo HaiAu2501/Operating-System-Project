@@ -120,7 +120,15 @@
     Do countdown.exe chia sẻ cùng console với tiến trình cha nên nó cũng chịu ảnh hưởng từ tiến trình cha
     Dùng tham số 'CREATE_NEW_PROCESS_GROUP' để tiến trình con tạo ra trong 1 nhóm tiến trình mới
 
-###### TEMPLATE BUG RECORD ######
+>>> (05) Cập nhật tính năng mới cho phép định nghĩa từ viết tắt cho lệnh: UPDATED 📌
+
+>>> (06) Tính năng tính toán nâng cao, đổi hệ cơ số: UPDATED 📌
+
+>>> (07) Tính năng bookmark lưu danh sách đường dẫn tắt: UPDATED 📌
+
+>>> (08) Tính năng lập lịch cho câu lệnh chạy sau một thời gian: UPDATED 📌
+
+### TEMPLATE BUG RECORD ###
 --- [STT] Mô tả lỗi: [ĐÃ FIX HAY CHƯA? UPDATED 📌 | SOLVED: ✅ | FIXED: ⭐ | REMOVED: ❌]
 
     SOLVED: Đã giải thích được nguyên nhân, đây không phải lỗi
