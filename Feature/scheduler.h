@@ -12,7 +12,7 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
 
 void scheduleCommand(const std::vector<std::string> &args)
 {
-    if (args.size() != 3 || args[1] != "s")
+    if (args.size() > 3 || args[1] != "s")
     {
         std::cerr << "Usage: after <number> s <command>" << std::endl;
         return;
