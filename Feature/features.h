@@ -12,6 +12,7 @@
 // HỆ THỐNG VÀ TIỆN ÍCH (8)
 #include "run_script.h"   // 1 lệnh
 #include "system_utils.h" // 7 lệnh
+#include "scheduler.h"    // 1 lệnh
 
 // TÍNH TOÁN NÂNG CAO (16)
 #include "variables.h"   // 0 lệnh

@@ -23,7 +23,7 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "copy" << ": Copy a directory" << std::endl;
     std::cout << std::setw(20) << "open" << ": Open a file" << std::endl;
     std::cout << std::setw(20) << "rename" << ": Rename a file" << std::endl;
-    std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;   
+    std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "start_foreground" << ": Start a process in foreground" << std::endl;
     std::cout << std::setw(20) << "start_background" << ": Start a process in background" << std::endl;
     std::cout << std::setw(20) << "terminate" << ": Terminate a process" << std::endl;
@@ -33,6 +33,7 @@ void showHelp(const std::vector<std::string> &args)
     std::cout << std::setw(20) << "list_children" << ": Print all children processes" << std::endl;
     std::cout << std::setw(20) << "suspend" << ": Suspend a process" << std::endl;
     std::cout << std::setw(20) << "resume" << ": Resume a process" << std::endl;
+    std::cout << std::setw(20) << "after" << ": Schedule a command" << std::endl;
     std::cout << std::setw(20) << "--------------------" << "--------------------" << std::endl;
     std::cout << std::setw(20) << "run" << ": Run a script" << std::endl;
     std::cout << std::setw(20) << "calculator" << ": Open the calculator" << std::endl;

@@ -461,6 +461,10 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
             std::cerr << "Usage: bookmark [add <name> <path> | remove <name> | list | go <name> | home]" << std::endl;
         }
     }
+    else if (command == "after")
+    {
+        scheduleCommand(args);
+    }
     else if (command == "alias")
     {
         if (args.empty())
