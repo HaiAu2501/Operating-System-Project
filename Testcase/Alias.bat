@@ -1,5 +1,6 @@
 clear_history
 alias h = help
+alias h = history
 h
 alias h = history
 alias

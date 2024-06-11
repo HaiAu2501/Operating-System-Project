@@ -8,5 +8,8 @@
 history.txt
 hello.txt
 
+# Ẩn các thu mục không cần thiết
+.image/
+
 # Ẩn thư mục Private
 Private/
