@@ -267,6 +267,141 @@ public:
         std::cout << "File renamed from " << oldPath << " to " << newPath << std::endl;
     }
 
+    // Hàm để tạo một hoặc nhiều file
+    void createFile(const std::vector<std::string> &fileNames)
+    {
+        for (const auto &fileName : fileNames)
+        {
+            std::ofstream file(fileName);
+            if (file)
+            {
+                std::cout << "File created successfully: " << fileName << std::endl;
+            }
+            else
+            {
+                std::cerr << "Failed to create file: " << fileName << std::endl;
+            }
+        }
+    }
+
+    // Hàm để xóa một hoặc nhiều file
+    void deleteFile(const std::vector<std::string> &fileNames)
+    {
+        for (const auto &fileName : fileNames)
+        {
+            if (fs::remove(fileName))
+            {
+                std::cout << "File deleted successfully: " << fileName << std::endl;
+            }
+            else
+            {
+                std::cerr << "Failed to delete file: " << fileName << std::endl;
+            }
+        }
+    }
+
+    // Hàm để kiểm tra xem file có tồn tại không
+    void checkFileExistence(const std::vector<std::string> &fileNames)
+    {
+        for (const auto &fileName : fileNames)
+        {
+            if (fs::exists(fileName))
+            {
+                std::cout << "File exists: " << fileName << std::endl;
+            }
+            else
+            {
+                std::cout << "File does not exist: " << fileName << std::endl;
+            }
+        }
+    }
+
+    // Hàm in ra phần mở rộng của một hay nhiều file
+    void printFileExtensions(const std::vector<std::string> &fileNames)
+    {
+        for (const auto &fileName : fileNames)
+        {
+            std::cout << "Extension of file " << fileName << ": " << fs::path(fileName).extension() << std::endl;
+        }
+    }
+
+    // Hàm sao chép file
+    void copyFile(const std::vector<std::string> &args)
+    {
+        if (args.size() != 2)
+        {
+            std::cout << "Usage: copy_file <source_file_path> <destination_file_path>" << std::endl;
+            return;
+        }
+        std::string source = args[0];
+        std::string destination = args[1];
+        try
+        {
+            fs::copy_file(source, destination);
+            std::cout << "File copied successfully from " << source << " to " << destination << std::endl;
+        }
+        catch (const fs::filesystem_error &e)
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+    }
+
+    // Hàm để di chuyển file
+    void moveFile(const std::vector<std::string> &args)
+    {
+        if (args.size() != 2)
+        {
+            std::cout << "Usage: move_file <source_file_path> <destination_file_path>" << std::endl;
+            return;
+        }
+        std::string source = args[0];
+        std::string destination = args[1];
+        try
+        {
+            fs::rename(source, destination);
+            std::cout << "File moved successfully from " << source << " to " << destination << std::endl;
+        }
+        catch (const fs::filesystem_error &e)
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+    }
+
+    // Hàm để liệt kê tất cả file có đuôi xác định trong thư mục
+    void listFilesWithExtension(const std::vector<std::string> &args)
+    {
+        if (args.size() > 2)
+        {
+            std::cout << "Usage: list_file <directory> <extension>" << std::endl;
+            return;
+        }
+
+        // Nếu chỉ có 1 tham số, in ra tất cả file trong thư mục đó
+        if (args.size() == 1)
+        {
+            std::string directory = args[0];
+            for (const auto &entry : fs::directory_iterator(directory))
+            {
+                if (entry.is_regular_file())
+                {
+                    std::cout << entry.path().filename() << std::endl;
+                }
+            }
+            return;
+        }
+
+        // Nếu có 2 tham số, in ra tất cả file có đuôi xác định trong thư mục đó
+        std::string directory = args[0];
+        std::string extension = args[1];
+        for (const auto &entry : fs::directory_iterator(directory))
+        {
+            if (entry.is_regular_file() && entry.path().extension() == extension)
+            {
+                std::cout << entry.path().filename() << std::endl;
+            }
+        }
+    }
+
 private:
     static bool interrupted;
 

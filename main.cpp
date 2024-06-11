@@ -65,6 +65,34 @@ void executeCommand(const std::string &command, const std::vector<std::string> &
     {
         fileManager.openFile(args);
     }
+    else if (command == "create_file")
+    {
+        fileManager.createFile(args);
+    }
+    else if (command == "delete_file")
+    {
+        fileManager.deleteFile(args);
+    }
+    else if (command == "move_file")
+    {
+        fileManager.moveFile(args);
+    }
+    else if (command == "copy_file")
+    {
+        fileManager.copyFile(args);
+    }
+    else if (command == "check_file")
+    {
+        fileManager.checkFileExistence(args);
+    }
+    else if (command == "extension_file")
+    {
+        fileManager.printFileExtensions(args);
+    }
+    else if (command == "list_file")
+    {
+        fileManager.listFilesWithExtension(args);
+    }
     else if (command == "exit")
     {
         exitShell();
