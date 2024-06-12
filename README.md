@@ -49,7 +49,7 @@ g++ -o -std=c++17 duck duck.cpp
 g++ -o -std=c++17 tictactoe tictactoe.cpp
 ```
 
-Nếu không biên dịch thì cũng không sao, khi ấy Tiny Shell sẽ không thể chạy các chương trình con này (không ảnh hưởng đến các tính năng khác). Một số câu lệnh như: `start_child`, `start_countdown`, `duck`, `tictactoe` sẽ được Tiny Shell thông báo không tìm thấy chương trình con tương ứng.
+Nếu không biên dịch thì cũng không sao, khi ấy Tiny Shell sẽ không thể chạy các chương trình con này (không ảnh hưởng đến các tính năng khác). Một số câu lệnh như: `child`, `countdown`, `duck`, `tictactoe` sẽ được Tiny Shell thông báo không tìm thấy chương trình con tương ứng.
 
 - **Bước 4:** Chuyển đến thư mục `Practice Project 1 - Tiny Shell` và biên dịch file mã nguồn chính của chương trình.
 
