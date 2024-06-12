@@ -10,6 +10,7 @@
 #include <set>
 #include <locale>
 #include <codecvt>
+#include <iomanip>
 
 using namespace std;
 
@@ -323,8 +324,8 @@ public:
             return;
         }
 
-        std::cout << "PID\tProcess Name" << std::endl;
-        std::cout << "-----------------------------" << std::endl;
+        std::cout << std::left << std::setw(8) << "PID" << std::setw(50) << "Process Name" << "Status" << std::endl;
+        std::cout << "---------------------------------------------------" << std::endl;
         do
         {
 #ifdef UNICODE
@@ -333,7 +334,31 @@ public:
 #else
             std::string processName = pe32.szExeFile;
 #endif
-            std::cout << pe32.th32ProcessID << "\t" << processName << std::endl;
+
+            HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, pe32.th32ProcessID);
+            std::string processStatus = "Unknown";
+            if (hProcess)
+            {
+                DWORD exitCode;
+                if (GetExitCodeProcess(hProcess, &exitCode))
+                {
+                    if (exitCode == STILL_ACTIVE)
+                    {
+                        processStatus = "Running";
+                    }
+                    else
+                    {
+                        processStatus = "Terminated";
+                    }
+                }
+                CloseHandle(hProcess);
+            }
+            else
+            {
+                processStatus = "Access Denied";
+            }
+
+            std::cout << std::left << std::setw(8) << pe32.th32ProcessID << std::setw(50) << processName << processStatus << std::endl;
         } while (Process32Next(hProcessSnap, &pe32));
 
         CloseHandle(hProcessSnap);
