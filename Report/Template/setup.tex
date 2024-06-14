@@ -1,0 +1,170 @@
+\documentclass[aspectratio=1610,10pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath}
+\usefonttheme[onlymath]{serif}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{listingsutf8}
+\usepackage{comment}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+\setbeamertemplate{caption}[numbered]
+\usepackage{makecell}
+\usepackage{fnpct}
+\usepackage{multirow}
+\usepackage{bbm}
+\usepackage{pgfpages}
+\usepackage{handoutWithNotes}
+\usepackage{xcolor}
+\usepackage{calc}
+\usepackage{changepage}
+
+
+
+
+% Bỏ thanh mờ mờ góc phải
+\setbeamertemplate{navigation symbols}{}
+
+
+\setbeamercolor{section in head/foot}{bg=cyan!5, fg=cyan!50}
+\setbeamercolor{author in head/foot}{bg=cyan!5, fg=black}
+
+\setbeamerfont{section in head/foot}{size=\small}
+\setbeamerfont{author in head/foot}{size=\small}
+
+% \setbeamertemplate{footline}{
+%   \begin{beamercolorbox}[ht=3ex,dp=1.5ex,right]{author in head/foot}
+%     \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+%   \end{beamercolorbox}
+% }
+
+% \setbeamertemplate{headline}{%
+%   \begin{beamercolorbox}[wd=\paperwidth,ht=5ex,dp=2.5ex]{section in head/foot}
+%     \hspace{5 ex}
+%      \insertsectionhead
+%     \ifx\insertsubsectionhead\empty
+%       % Không có subsection, không hiển thị dấu gạch ngang
+%     \else
+%       % Có subsection, hiển thị dấu gạch ngang và tên của subsection
+%       \,---\,\insertsubsectionhead
+%     \fi
+%   \end{beamercolorbox}%
+%   \vspace{5 pt}
+% }
+
+\setbeamertemplate{footline}{
+    \begin{beamercolorbox}[ht=5ex,dp=3ex,right]{author in head/foot} % Tăng kích thước box
+        \usebeamerfont{author in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}
+}
+
+\setbeamertemplate{headline}{
+    \begin{beamercolorbox}[wd=\paperwidth,ht=6ex,dp=3.5ex]{section in head/foot} % Tăng kích thước box
+        \usebeamerfont{section in head/foot}\hspace{1 ex}
+        \insertsectionhead
+        \ifx\insertsubsectionhead\empty
+            % Không có subsection, không hiển thị dấu gạch ngang
+        \else
+            % Có subsection, hiển thị dấu gạch ngang và tên của subsection
+            \,---\,\insertsubsectionhead
+        \fi
+    \end{beamercolorbox}%
+}
+
+
+\everymath{\displaystyle}
+
+
+\setbeamerfont{title}{size=\fontsize{26}{12}}
+
+% Tạo màu cho các block
+\setbeamercolor{block title example}{fg=white, bg=teal!80!}
+\setbeamercolor{block body example}{ bg=teal!20}
+\setbeamercolor{block title alerted}{fg=white, bg=orange}
+\setbeamercolor{block body alerted}{ bg=orange!25}
+\setbeamercolor{block title}{bg=cyan, fg=white}
+\setbeamercolor{block body}{bg=cyan!10}
+
+% Dấu tròn trước item
+\setbeamertemplate{itemize item}{\textbullet}
+
+
+% Tên nè
+\title{Tiny Shell}
+\subtitle{
+    \Large Tương tác với hệ điều hành thông qua giao diện dòng lệnh\\
+    \vspace{5 pt}\small\textbf{Học phần:} IT3070 - Nguyên lý Hệ điều hành\\ \small\textbf{Giảng viên hướng dẫn:} TS. Phạm Đăng Hải}
+\author{N.~V.~T.~Kiệt \inst{1,2}, B.~Q~Phong \inst{1,2}, L.~T.~Khang \inst{1}, N.~T.Tuyển \inst{1}}
+
+
+\institute %
+{
+    \inst{1}%
+    Chương trình tài năng - Khoa học máy tính K67\\
+    Trường Công nghệ Thông tin và Truyền thông
+    \and
+    \inst{2}%
+    Phòng thí nghiệm Mô hình hóa, Mô phỏng và Tối ưu hóa\\
+    Trung tâm nghiên cứu quốc tế về Trí tuệ nhân tạo, BKAI
+
+}
+\date{\today}
+
+% \setbeamertemplate{frametitle}{
+% % Bọc tcolorbox bằng hbox để giới hạn chiều rộng theo nội dung
+%       \begin{tcolorbox}[
+%         colback=cyan!10,
+%         colframe=white, % Màu viền của hộp
+%         boxrule=0mm, % Độ dày của viền, đặt là 0 nếu không muốn viền
+%         arc=3mm, % Độ cong của góc Tự động làm cho các góc ngoài cong theo arc được đặt
+%         boxsep=1mm, % Khoảng cách giữa viền và nội dung trong hộp
+%         left=3mm, right=3mm, top=1mm, bottom=1mm % Padding bên trong hộp
+%       ]
+%         \insertframetitle % Chèn tiêu đề slide
+%       \end{tcolorbox}
+
+% }
+\newlength{\customwidth}
+
+% \setbeamertemplate{frametitle}{
+%     % Xác định chiều rộng của tiêu đề để chỉ định chiều rộng của tcolorbox
+%     \settowidth{\customwidth}{\insertframetitle\hspace{6mm}}
+
+%     \begin{tcolorbox}[
+%         colback=orange!10,
+%         colframe=white,
+%         boxrule=0mm, % Độ dày của viền
+%         arc=3mm, % Độ cong của góc
+%         auto outer arc,
+%         boxsep=1mm,
+%         left=-1mm, right=2mm, top=0mm, bottom=1mm,
+%         width=\customwidth % Đặt chiều rộng của tcolorbox bằng với chiều rộng của tiêu đề
+%     ]
+%         \color{orange}\insertframetitle
+%     \end{tcolorbox}
+% }
+
+\setbeamertemplate{frametitle}{
+    \settowidth{\customwidth}{\insertframetitle\hspace{6mm}}
+    \begin{tcolorbox}[
+            enhanced,
+            colback=orange!10,
+            colframe=white,
+            boxrule=0mm,
+            arc=3mm,
+            auto outer arc,
+            boxsep=1mm,
+            left=0mm, right=1mm, top=5mm, bottom=1mm,
+            width=\customwidth, % Đặt chiều rộng của tcolorbox bằng với chiều rộng giấy
+            enlarge left by=-3mm, % Dịch chuyển toàn bộ tcolorbox sang trái 3mm
+            overlay={
+                    \node[anchor=west] at ([xshift=1mm]frame.west) {\color{orange}\insertframetitle};
+                }
+        ]
+    \end{tcolorbox}
+}
+
+
