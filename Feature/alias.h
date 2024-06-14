@@ -11,6 +11,7 @@ class AliasManager
 public:
     AliasManager()
     {
+        // Danh sách các lệnh hỗ trợ
         validCommands = {
             "delete",
             "move",
