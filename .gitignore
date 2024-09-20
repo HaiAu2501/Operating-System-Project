@@ -13,3 +13,6 @@ hello.txt
 
 # Ẩn thư mục Private
 Private/
+
+build/
+out/
