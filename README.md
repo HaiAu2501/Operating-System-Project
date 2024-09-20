@@ -1,12 +1,12 @@
 # Bài tập lớn Nguyên lý Hệ điều hành
 
 <div align="center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=2000&pause=500&color=EE4E4E&background=FFFFFF00&center=true&vCenter=true&repeat=false&random=false&width=435&lines=Operating+System+Project;Tiny+Shell" alt="Typing SVG" /></a>
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=2000&pause=500&color=EE4E4E&background=FFFFFF00&center=true&vCenter=true&repeat=false&random=false&width=435&lines=Operating+System+Project;Tiny+Shell" alt="Typing SVG" /></a>
 </div>
 
 <div align="center">
-<img alt="Static Badge" src="https://img.shields.io/badge/HUST-course-blue?labelColor=EE4E4E&color=151515">
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/HaiAu2501/Operating-System-Project?labelColor=EE4E4E&color=151515">
+  <img alt="Static Badge" src="https://img.shields.io/badge/HUST-course-blue?labelColor=EE4E4E&color=151515">
+  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/HaiAu2501/Operating-System-Project?labelColor=EE4E4E&color=151515">
 </div>
 
 ## Giới thiệu
@@ -23,12 +23,21 @@ Tiny Shell là một dự án hữu ích cho những ai muốn tìm hiểu về 
 - Nguyễn Thanh Tuyển
 - Nguyễn Thái Hòa (Hỗ trợ kĩ thuật)
 
+### Người đóng góp
+
+<div align="center">
+  <a href="https://github.com/HaiAu2501/Operating-System-Project/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=HaiAu2501/Operating-System-Project" />
+  </a>
+</div>
+
 ## Cài đặt và triển khai
 
 ### Yêu cầu
 
 - Hệ điều hành Windows 10 hoặc mới hơn.
-- C++ 17 hoặc mới hơn.
+- CMake phiên bản 3.10.2 trở lên.
+- MSVC hoặc MinGW để biên dịch mã nguồn C++.
 
 ### Cài đặt
 
@@ -38,26 +47,33 @@ Tiny Shell là một dự án hữu ích cho những ai muốn tìm hiểu về 
 git clone https://github.com/HaiAu2501/Operating-System-Projects.git
 ```
 
-- **Bước 2:** Mở dự án bằng Visual Studio Code hoặc trình biên dịch C++ khác.
-
-- **Bước 3:** Chuyển đến thư mục `Process` và biên dịch các file mã nguồn trong thư mục Process.
+- **Bước 2:** Tạo folder build cho CMake và chuyển đến thư mục này.
 
 ```bash
-g++ -o -std=c++17 child_process child_process.cpp
-g++ -o -std=c++17 countdown countdown.cpp -lgdi32 
-g++ -o -std=c++17 duck duck.cpp
-g++ -o -std=c++17 tictactoe tictactoe.cpp
+mkdir build
+cd build
 ```
 
-Nếu không biên dịch thì cũng không sao, khi ấy Tiny Shell sẽ không thể chạy các chương trình con này (không ảnh hưởng đến các tính năng khác). Một số câu lệnh như: `child`, `countdown`, `duck`, `tictactoe` sẽ được Tiny Shell thông báo không tìm thấy chương trình con tương ứng.
-
-- **Bước 4:** Chuyển đến thư mục `Practice Project 1 - Tiny Shell` và biên dịch file mã nguồn chính của chương trình.
+- **Bước 3:** Sử dụng CMake để tạo file Makefile hoặc Visual Studio project.
 
 ```bash
-g++ -o -std=c++17 main main.cpp
+cmake ..
 ```
 
-- **Bước 5:** Chạy chương trình `main.exe`, sau đó nhập các lệnh từ bàn phím để tương tác với Tiny Shell. Bạn nên nhập lệnh `help` để xem danh sách các lệnh hỗ trợ.
+- **Bước 4:** Biên dịch mã nguồn bằng trình biên dịch C++ mà bạn đã cài đặt.
+
+```bash
+cmake --build . --target install --config Debug
+```
+
+- **Bước 5:** Chạy chương trình `Operating-System-Project.exe` từ thư mục `install`. Bạn nên nhập lệnh `help` để xem danh sách các lệnh hỗ trợ.
+
+```bash
+cd install
+Operating-System-Project.exe
+```
+
+Nếu không biên dịch thì cũng không sao, bạn có thể tải file thực thi từ [đây](https://github.com/HaiAu2501/Operating-System-Project/releases/download/1.0.0/Operating-System-Project.x64.zip). Nếu chạy bị lỗi, hãy cài đặt [Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
 ### Giải thích
 
@@ -70,7 +86,7 @@ g++ -o -std=c++17 main main.cpp
   - `duck.cpp`: Chương trình vẽ hình con vịt.
   - `tictactoe.cpp`: Chương trình chơi cờ caro.
 - **Testcase:** Thư mục chứa các kịch bản kiểm thử cho Tiny Shell nhằm đảm bảo tính ổn định và đúng đắn của chương trình.
-  - Mỗi *kịch bản* là dãy lệnh được lưu thành một file `.bat`.
+  - Mỗi _kịch bản_ là dãy lệnh được lưu thành một file `.bat`.
   - Dãy lệnh sẽ có độ khó nhất định và là một quy trình hoàn toàn khép kín.
   - Tên file sẽ phản ánh nội dung tính năng kiểm thử của kịch bản.
   - Tiny Shell chạy kịch bản kiểm thử bằng cách nhập lệnh `run Testcase\<tên file>` từ bàn phím.
