@@ -7,3 +7,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(Operating-System-Project main.cpp)
 add_definitions(-DNOMINMAX)
+
+add_subdirectory(Process)
