@@ -7,6 +7,8 @@ foreach(SOURCE_FILE ${PROCESS_SOURCES})
     
     add_executable(${EXECUTABLE_NAME} ${SOURCE_FILE})
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+
+    install(TARGETS ${EXECUTABLE_NAME} RUNTIME DESTINATION Process)
 endforeach()
 
 set_target_properties(countdown PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
