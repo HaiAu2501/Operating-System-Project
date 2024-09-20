@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - feature/cmake
+      - main
 
 permissions:
   contents: write
@@ -33,7 +33,8 @@ jobs:
 
       - name: Zip the build
         run: |
-          7z a Operating-System-Project.x64.zip install/*
+          cd install
+          7z a ../Operating-System-Project.x64.zip *
 
       - name: GH Release
         uses: softprops/action-gh-release@v2
