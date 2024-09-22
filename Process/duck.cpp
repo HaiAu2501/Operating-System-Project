@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <unistd.h>
+#include "unistd.h"
 #include <string.h>
+#include <windows.h>
 
 void clearScreen()
 {
@@ -31,6 +32,19 @@ void printDuck(int position, int quack)
         printf(" ");
     }
     printf("~~~~~~~~~~~~~~~~~~\n");
+}
+
+void usleep(unsigned int usec)
+{
+	HANDLE timer;
+	LARGE_INTEGER ft;
+
+	ft.QuadPart = -(10 * (__int64)usec);
+
+	timer = CreateWaitableTimer(NULL, TRUE, NULL);
+	SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
+	WaitForSingleObject(timer, INFINITE);
+	CloseHandle(timer);
 }
 
 int main()

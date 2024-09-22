@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSVC Developer Command Prompt
+        uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: x64
+
+      - name: Install ninja-build tool
+        uses: seanmiddleditch/gha-setup-ninja@v5
+
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=MinSizeRel
+          cmake --build . --target install --config MinSizeRel
+
+      - name: Zip the build
+        run: |
+          cd install
+          7z a ../Operating-System-Project.x64.zip *
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Operating-System-Project
+          tag_name: 1.0.0
+          files: |
+            Operating-System-Project.x64.zip
